@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Citizen Health Ledger – Case Prototype</title>
+  <title>Citizen Health Case Prototype</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     * {
@@ -24,13 +24,12 @@
       margin: 0;
       font-size: 20px;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
     }
     header p {
       margin: 4px 0 0;
       font-size: 13px;
       color: #aaa;
-      max-width: 800px;
+      max-width: 900px;
     }
     main {
       display: flex;
@@ -46,15 +45,15 @@
     }
     #formColumn {
       flex: 1 1 420px;
-      max-width: 640px;
+      max-width: 680px;
       overflow-y: auto;
-      max-height: calc(100vh - 120px);
+      max-height: calc(100vh - 80px);
     }
     #previewColumn {
       flex: 1 1 420px;
-      max-width: 640px;
+      max-width: 680px;
       overflow-y: auto;
-      max-height: calc(100vh - 120px);
+      max-height: calc(100vh - 80px);
     }
     h2 {
       font-size: 16px;
@@ -111,9 +110,11 @@
     .field-row {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .field-row > div {
       flex: 1;
+      min-width: 150px;
     }
     .hint {
       font-size: 11px;
@@ -173,6 +174,14 @@
     button.secondary:hover {
       border-color: #666;
     }
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slider-row input[type="range"] {
+      flex: 1;
+    }
     /* preview */
     #previewColumn h2 {
       margin-bottom: 4px;
@@ -222,17 +231,6 @@
     .file-list li {
       margin-bottom: 2px;
     }
-    footer {
-      padding: 8px 24px 12px;
-      border-top: 1px solid #333;
-      background: #101017;
-      font-size: 11px;
-      color: #888;
-    }
-    footer p {
-      margin: 2px 0;
-      max-width: 960px;
-    }
     @media (max-width: 900px) {
       main {
         flex-direction: column;
@@ -246,330 +244,1232 @@
 </head>
 <body>
 <header>
-  <h1>Citizen Health Ledger</h1>
+  <h1>Citizen Health Case Prototype</h1>
   <p>
-    Anonymous structured intake form to map a single human life as a case:
-    exposures, medical history, lived experience. Everything is optional. The goal
-    is to preserve patterns as citizens see them. This prototype does not save, transmit,
-    or interpret data and does not give medical advice or make causal claims.
+    Anonymous structured intake to map a single human life as a full case: exposures, medical history, lived experience.
+    Everything is optional. The goal is clarity and density, not perfection.
   </p>
 </header>
 
-<main>
+
+<main> 
+
   <section id="formColumn" class="column">
     <h2>Case Intake Form (Prototype)</h2>
     <form id="caseForm" autocomplete="off">
-      <!-- Core identity (anonymous) -->
-      <div class="section">
-        <div class="section-header">
-          <span>Core Profile</span>
+
+
+  <!-- 1. CASE LABEL & BASIC DEMOGRAPHICS -->
+  <div class="section">
+    <div class="section-header">
+      <span>1. Case Label & Basics</span>
+    </div>
+    <div class="section-body">
+      <label for="caseLabel">Case label (so you recognize this later)</label>
+      <input type="text" id="caseLabel" placeholder="e.g., 1992 – Female – POTS, neuropathy, fatigue – suspected COVID vax">
+
+      <div class="field-row">
+        <div>
+          <label for="birthYear">Birth year</label>
+          <input type="number" id="birthYear" min="1900" max="2100" placeholder="e.g., 1992">
         </div>
-        <div class="section-body">
-          <div class="field-row">
-            <div>
-              <label for="caseLabel">Case label (how you’ll recognize this later)</label>
-              <input type="text" id="caseLabel" placeholder="e.g., 'Florida / 1989 / autoimmune after HPV'">
-            </div>
-          </div>
-          <div class="field-row">
-            <div>
-              <label for="ageRange">Age range (optional)</label>
-              <select id="ageRange">
-                <option value="">Prefer not to say</option>
-                <option>0–5</option>
-                <option>6–12</option>
-                <option>13–18</option>
-                <option>19–29</option>
-                <option>30–39</option>
-                <option>40–49</option>
-                <option>50–64</option>
-                <option>65+</option>
-              </select>
-            </div>
-            <div>
-              <label for="birthYear">Birth year (optional)</label>
-              <input type="number" id="birthYear" min="1900" max="2100" placeholder="e.g., 1992">
-            </div>
-          </div>
-          <div class="field-row">
-            <div>
-              <label for="biologicalSex">Biological sex (optional)</label>
-              <select id="biologicalSex">
-                <option value="">Prefer not to say</option>
-                <option>Female</option>
-                <option>Male</option>
-                <option>Intersex / variation</option>
-              </select>
-            </div>
-            <div>
-              <label for="genderIdentity">Gender identity (optional)</label>
-              <input type="text" id="genderIdentity" placeholder="If relevant to your health story">
-            </div>
-          </div>
-          <div class="field-row">
-            <div>
-              <label for="state">State / region (optional)</label>
-              <input type="text" id="state" placeholder="e.g., Florida, Midwest, Europe (no exact address)">
-              <div class="hint">No exact addresses. Just enough to anchor environment.</div>
-            </div>
-            <div>
-              <label for="bmi">BMI or build (optional)</label>
-              <input type="text" id="bmi" placeholder="e.g., 23, underweight, athletic, etc.">
-            </div>
-          </div>
+        <div>
+          <label for="age">Age (approx)</label>
+          <input type="number" id="age" min="0" max="120" placeholder="">
         </div>
       </div>
 
-      <!-- Early life -->
-      <div class="section">
-        <div class="section-header">
-          <span>Birth & Early Childhood</span>
+      <div class="field-row">
+        <div>
+          <label for="biologicalSex">Biological sex</label>
+          <select id="biologicalSex">
+            <option value="">Prefer not to say</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Intersex / variation</option>
+          </select>
         </div>
-        <div class="section-body">
-          <label for="birthType">Birth details (optional)</label>
-          <textarea id="birthType" placeholder="e.g., full-term vaginal, emergency c-section, NICU stay, complications…"></textarea>
-
-          <label for="earlyChildhoodHealth">Childhood health summary</label>
-          <textarea id="earlyChildhoodHealth" placeholder="Frequent infections? Hospitalizations? Overall robust / fragile? Developmental delays?"></textarea>
-
-          <div class="field-row">
-            <div>
-              <label for="childhoodVaccinesSummary">Childhood vaccination summary</label>
-              <textarea id="childhoodVaccinesSummary" placeholder="e.g., ‘CDC schedule through age 12’, ‘few/no vaccines’, ‘partial schedule, delayed’, etc."></textarea>
-            </div>
-          </div>
+        <div>
+          <label for="genderIdentity">Gender identity (optional)</label>
+          <input type="text" id="genderIdentity" placeholder="">
         </div>
       </div>
 
-      <!-- Vaccination history -->
-      <div class="section">
-        <div class="section-header">
-          <span>Vaccination History</span>
+      <div class="field-row">
+        <div>
+          <label for="height">Height</label>
+          <input type="text" id="height" placeholder="e.g., 5'6&quot; or 168 cm">
         </div>
-        <div class="section-body">
-          <label>Major vaccines received (check all that apply; add notes below)</label>
-          <div class="pill-group">
-            <label class="pill"><input type="checkbox" value="HepB" class="vaccineChk"> Hep B</label>
-            <label class="pill"><input type="checkbox" value="DTaP/Tdap" class="vaccineChk"> DTaP / Tdap</label>
-            <label class="pill"><input type="checkbox" value="Polio" class="vaccineChk"> Polio</label>
-            <label class="pill"><input type="checkbox" value="MMR" class="vaccineChk"> MMR</label>
-            <label class="pill"><input type="checkbox" value="Varicella" class="vaccineChk"> Varicella</label>
-            <label class="pill"><input type="checkbox" value="HPV" class="vaccineChk"> HPV</label>
-            <label class="pill"><input type="checkbox" value="Flu" class="vaccineChk"> Flu (seasonal)</label>
-            <label class="pill"><input type="checkbox" value="COVID" class="vaccineChk"> COVID</label>
-            <label class="pill"><input type="checkbox" value="Meningococcal" class="vaccineChk"> Meningococcal</label>
-            <label class="pill"><input type="checkbox" value="Pneumococcal" class="vaccineChk"> Pneumococcal</label>
-            <label class="pill"><input type="checkbox" value="OtherVaccines" class="vaccineChk"> Other / travel</label>
-            <label class="pill"><input type="checkbox" value="MinimalNone" class="vaccineChk"> Minimal / none</label>
-          </div>
-
-          <label for="vaccineDosesDetail">Dose counts and approximate ages / years</label>
-          <textarea id="vaccineDosesDetail" placeholder="e.g., 3 doses of HPV at 13–14, mRNA COVID x3 at 2021–2022, annual flu 2010–2020, etc."></textarea>
-
-          <label for="postVaccineEvents">Notable events after vaccines (if any)</label>
-          <textarea id="postVaccineEvents" placeholder="e.g., seizures after MMR, chronic fatigue after HPV, myocarditis after COVID, etc."></textarea>
+        <div>
+          <label for="weight">Weight</label>
+          <input type="text" id="weight" placeholder="e.g., 140 lb / 64 kg">
         </div>
       </div>
 
-      <!-- Surgeries & major procedures -->
-      <div class="section">
-        <div class="section-header">
-          <span>Surgeries & Major Procedures</span>
+      <div class="field-row">
+        <div>
+          <label for="bmi">BMI or build (optional)</label>
+          <input type="text" id="bmi" placeholder="e.g., 23, underweight, athletic, etc.">
         </div>
-        <div class="section-body">
-          <label>Check any surgeries you’ve had</label>
-          <div class="pill-group">
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Tonsillectomy"> Tonsillectomy</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Appendectomy"> Appendectomy</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Cholecystectomy"> Cholecystectomy (gallbladder)</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Wisdom teeth removal"> Wisdom teeth removal</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Ear tubes"> Ear tubes</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Spinal fusion"> Spinal fusion</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Joint replacement"> Joint replacement</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="Plastic/cosmetic surgery"> Plastic / cosmetic surgery</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="C-section"> C-section</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="OtherSurgery"> Other major surgery</label>
-            <label class="pill"><input type="checkbox" class="surgeryChk" value="NoSurgery"> None</label>
-          </div>
-          <label for="surgeriesDetail">Surgeries timeline (approx dates, reasons, outcomes)</label>
-          <textarea id="surgeriesDetail" placeholder="e.g., tonsillectomy at 7 for recurrent strep, wisdom teeth at 18, C-section at 29, etc."></textarea>
+        <div>
+          <label for="ethnicity">Ethnic background (optional)</label>
+          <input type="text" id="ethnicity" placeholder="e.g., European, African, Asian, mixed">
         </div>
       </div>
 
-      <!-- Chronic conditions & patterns -->
-      <div class="section">
-        <div class="section-header">
-          <span>Conditions & Patterns</span>
+      <label>Physical phenotype (optional)</label>
+      <div class="field-row">
+        <div>
+          <label for="hairColor">Hair color</label>
+          <select id="hairColor">
+            <option value="">Skip</option>
+            <option>Black</option>
+            <option>Dark brown</option>
+            <option>Medium brown</option>
+            <option>Light brown</option>
+            <option>Blond</option>
+            <option>Red</option>
+            <option>Gray / white</option>
+            <option>Other</option>
+          </select>
         </div>
-        <div class="section-body">
-          <label>Check conditions that apply (ever diagnosed / clearly present)</label>
-          <div class="pill-group">
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Asthma"> Asthma</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Allergies"> Allergies</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Eczema"> Eczema</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Migraine"> Migraine</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Seizures"> Seizures / epilepsy</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Autoimmune disease"> Autoimmune disease</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Chronic fatigue"> Chronic fatigue / ME</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="POTS/dysautonomia"> POTS / dysautonomia</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Chronic pain"> Chronic pain / fibromyalgia</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Cyclical illness"> Cyclical / seasonal illness pattern</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Cancer"> Cancer</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Neurodevelopmental"> Autism / ADHD / other neurodevelopmental</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Neurodegenerative"> Alzheimer’s / Parkinson’s / ALS</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Mental health"> Depression / anxiety / other mental health diagnosis</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Cardiovascular"> Heart disease / arrhythmia / myocarditis / stroke</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Metabolic"> Diabetes / metabolic syndrome / obesity</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Infertility/fertility issues"> Fertility / miscarriage / hormonal issues</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="OtherCondition"> Other</label>
-            <label class="pill"><input type="checkbox" class="conditionChk" value="Generally healthy"> Generally healthy, no major diagnoses</label>
-          </div>
-          <label for="conditionsDetail">Conditions timeline and pattern</label>
-          <textarea id="conditionsDetail" placeholder="When did things start? What changed before and after? Any clear flares, remissions, triggers?"></textarea>
-
-          <label for="worstPain">Memory of most intense pain ever felt (optional)</label>
-          <textarea id="worstPain" placeholder="What happened, when, and how would you describe it?"></textarea>
+        <div>
+          <label for="hairTexture">Hair texture</label>
+          <select id="hairTexture">
+            <option value="">Skip</option>
+            <option>Straight</option>
+            <option>Wavy</option>
+            <option>Curly</option>
+            <option>Coily</option>
+            <option>Mixed</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label for="eyeColor">Eye color</label>
+          <select id="eyeColor">
+            <option value="">Skip</option>
+            <option>Brown</option>
+            <option>Hazel</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>Gray</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="skinTone">Skin tone</label>
+          <select id="skinTone">
+            <option value="">Skip</option>
+            <option>Very fair</option>
+            <option>Fair</option>
+            <option>Medium</option>
+            <option>Olive</option>
+            <option>Brown</option>
+            <option>Dark</option>
+          </select>
         </div>
       </div>
 
-      <!-- Medications -->
-      <div class="section">
-        <div class="section-header">
-          <span>Medications & Substances</span>
+      <label>Skin / nails / dental (optional)</label>
+      <div class="field-row">
+        <div>
+          <label for="acneHistory">Acne / facial redness</label>
+          <select id="acneHistory">
+            <option value="">Skip</option>
+            <option>Never / minimal</option>
+            <option>Mild intermittent</option>
+            <option>Moderate persistent</option>
+            <option>Severe / cystic</option>
+            <option>Rosacea / chronic redness</option>
+          </select>
         </div>
-        <div class="section-body">
-          <label for="prescribedMeds">Prescribed medications (past & current, optional)</label>
-          <textarea id="prescribedMeds" placeholder="e.g., SSRIs, benzodiazepines, stimulants, statins, antihypertensives, etc. Include durations if possible."></textarea>
+        <div>
+          <label for="dentalHealth">Dental health</label>
+          <select id="dentalHealth">
+            <option value="">Skip</option>
+            <option>Good, minor issues</option>
+            <option>Frequent cavities</option>
+            <option>Root canals / major restorations</option>
+            <option>Multiple missing teeth / dentures / implants</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <label>Frequently used OTC meds (lifetime or long-term patterns)</label>
-          <div class="pill-group">
-            <label class="pill"><input type="checkbox" class="otcChk" value="Advil/ibuprofen"> Advil / ibuprofen</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Tylenol/acetaminophen"> Tylenol / acetaminophen</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Benadryl/diphenhydramine"> Benadryl</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Alka-Seltzer"> Alka-Seltzer</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Pepto-Bismol"> Pepto-Bismol</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Mucinex"> Mucinex</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Laxatives"> Laxatives</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Proton pump inhibitors/acid reducers"> Acid reducers (PPIs / H2 blockers)</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Melatonin"> Melatonin</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="Antihistamines (other)"> Other antihistamines</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="OtherOTC"> Other OTC</label>
-            <label class="pill"><input type="checkbox" class="otcChk" value="MinimalOTC"> Rarely / never use OTC meds</label>
-          </div>
+  <!-- 2. GEOGRAPHY & HOUSING -->
+  <div class="section">
+    <div class="section-header">
+      <span>2. Region & Housing</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row">
+        <div>
+          <label for="country">Country (majority of life)</label>
+          <input type="text" id="country" placeholder="e.g., United States">
+        </div>
+        <div>
+          <label for="usRegion">US region (if applicable)</label>
+          <select id="usRegion">
+            <option value="">Not in US / skip</option>
+            <option>Northeast</option>
+            <option>Midwest</option>
+            <option>South</option>
+            <option>West</option>
+            <option>Pacific Northwest</option>
+            <option>Mountain West</option>
+            <option>Southeast</option>
+            <option>Southwest</option>
+            <option>Central</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label for="urbanRural">Typical environment</label>
+          <select id="urbanRural">
+            <option value="">Skip</option>
+            <option>Rural</option>
+            <option>Suburban</option>
+            <option>Urban</option>
+            <option>Mixed</option>
+          </select>
+        </div>
+        <div>
+          <label for="housingMold">Mold / damp housing history</label>
+          <select id="housingMold">
+            <option value="">Skip</option>
+            <option>Never noticed</option>
+            <option>Past home suspected mold</option>
+            <option>Current home suspected mold</option>
+            <option>Both past and current</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <label for="antibiotics">Antibiotic usage pattern</label>
-          <textarea id="antibiotics" placeholder="e.g., multiple courses in childhood, long-term antibiotic use for acne, almost never, etc."></textarea>
+  <!-- 3. EARLY LIFE: CONCEPTION, BIRTH, INFANT YEARS -->
+  <div class="section">
+    <div class="section-header">
+      <span>3. Conception, Birth, Infant Years</span>
+    </div>
+    <div class="section-body">
+      <label for="conceptionType">Conception</label>
+      <select id="conceptionType">
+        <option value="">Unknown / skip</option>
+        <option>Natural</option>
+        <option>IVF (fresh)</option>
+        <option>IVF (frozen)</option>
+        <option>IUI</option>
+        <option>Surrogate pregnancy</option>
+        <option>Adoption (details unknown)</option>
+      </select>
 
-          <label for="substances">Substances (alcohol, nicotine, recreational drugs, etc.)</label>
-          <textarea id="substances" placeholder="Optional: key exposures and patterns over your life."></textarea>
+      <div class="field-row">
+        <div>
+          <label for="gestationWeeks">Gestational age at birth (weeks, approx)</label>
+          <input type="number" id="gestationWeeks" min="20" max="44" placeholder="">
+        </div>
+        <div>
+          <label for="birthMode">Birth mode</label>
+          <select id="birthMode">
+            <option value="">Unknown / skip</option>
+            <option>Vaginal – hospital</option>
+            <option>Vaginal – birth center</option>
+            <option>Vaginal – home</option>
+            <option>Planned C-section</option>
+            <option>Emergency C-section</option>
+          </select>
         </div>
       </div>
 
-      <!-- Lifestyle & environment -->
-      <div class="section">
-        <div class="section-header">
-          <span>Diet, Lifestyle & EMF Exposure</span>
+      <div class="field-row">
+        <div>
+          <label for="induction">Labor induction</label>
+          <select id="induction">
+            <option value="">Unknown / skip</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
         </div>
-        <div class="section-body">
-          <label for="dietPattern">Diet pattern (lifetime and recent)</label>
-          <textarea id="dietPattern" placeholder="e.g., highly processed standard diet, mostly whole foods, vegetarian/vegan, high sugar, etc. Note big shifts and when they happened."></textarea>
-
-          <label for="movementSleep">Movement / sleep / stress</label>
-          <textarea id="movementSleep" placeholder="e.g., sedentary vs active, sleep quality, major life stressors, shift work, night shifts, etc."></textarea>
-
-          <label>EMF exposure (simple scalar estimate)</label>
-          <div class="field-row">
-            <div>
-              <label for="yearsNearTowers" class="small">Years living very close to cell towers / high-voltage lines</label>
-              <input type="number" id="yearsNearTowers" min="0" max="100" placeholder="0">
-            </div>
-            <div>
-              <label for="yearsWifiBedroom" class="small">Years sleeping with Wi-Fi router in bedroom / on other side of wall</label>
-              <input type="number" id="yearsWifiBedroom" min="0" max="100" placeholder="0">
-            </div>
-          </div>
-          <div class="field-row">
-            <div>
-              <label for="hoursPhoneOnBody" class="small">Average hours per day phone is on your body (pocket/bra)</label>
-              <input type="number" id="hoursPhoneOnBody" min="0" max="24" step="0.5" placeholder="0">
-            </div>
-            <div>
-              <label for="otherEmf" class="small">Other EMF exposures (workplaces, medical devices, etc.)</label>
-              <input type="text" id="otherEmf" placeholder="Optional short notes">
-            </div>
-          </div>
-          <div class="button-row">
-            <button type="button" class="secondary" onclick="calculateEmfScore()">Calculate EMF score</button>
-            <span id="emfScoreDisplay" class="small"></span>
-          </div>
+        <div>
+          <label for="epidural">Epidural received</label>
+          <select id="epidural">
+            <option value="">Unknown / skip</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
         </div>
       </div>
 
-      <!-- Doctor interaction & data -->
-      <div class="section">
-        <div class="section-header">
-          <span>Doctor Interaction & Records</span>
+      <div class="field-row">
+        <div>
+          <label for="pitocin">Pitocin / oxytocin for labor</label>
+          <select id="pitocin">
+            <option value="">Unknown / skip</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
         </div>
-        <div class="section-body">
-          <label for="doctorVisitFrequency">Doctor visits by life stage (optional)</label>
-          <textarea id="doctorVisitFrequency" placeholder="e.g., rarely saw doctors until 25; heavy utilization 25–35; annual checkups only, etc."></textarea>
-
-          <label for="bloodworkSummary">Notable bloodwork / imaging (if you want to summarize)</label>
-          <textarea id="bloodworkSummary" placeholder="Key lab abnormalities, imaging findings, or 'always told everything is normal' despite symptoms."></textarea>
-
-          <label for="uploadedDocs">Upload redacted documents (optional)</label>
-          <input type="file" id="uploadedDocs" multiple>
-          <div class="hint">No names, no addresses. Redact identifiers before uploading. Prototype only: files are not transmitted, just listed for preview.</div>
-        </div>
-      </div>
-
-      <!-- Narrative & linking -->
-      <div class="section">
-        <div class="section-header">
-          <span>Core Narrative</span>
-        </div>
-        <div class="section-body">
-          <label for="keyTurningPoints">Key turning points in your health story</label>
-          <textarea id="keyTurningPoints" placeholder="What changed you? Vaccine, infection, surgery, accident, trauma, exposure, medication, pregnancy, etc. What was 'before'? What is 'after'?"></textarea>
-
-          <label for="selfAssessment">How you currently understand your health (optional)</label>
-          <textarea id="selfAssessment" placeholder="Your own working theory. What feels connected? What do you suspect? What has been ignored?"></textarea>
-
-          <label for="messageToOthers">Message to others reading cases like yours (optional)</label>
-          <textarea id="messageToOthers" placeholder="What would you want someone in a similar situation to know?"></textarea>
+        <div>
+          <label for="nicuStay">NICU stay</label>
+          <select id="nicuStay">
+            <option value="">No / unknown</option>
+            <option>Yes</option>
+          </select>
         </div>
       </div>
 
-      <div class="button-row">
-        <button type="button" class="primary" onclick="renderPreview()">Preview case</button>
-        <button type="reset" class="secondary" onclick="clearPreview()">Clear form &amp; preview</button>
+      <div class="field-row">
+        <div>
+          <label for="nicuDays">If NICU stay, approx days</label>
+          <input type="number" id="nicuDays" min="0" max="365">
+        </div>
+        <div>
+          <label for="breastfedAtBirth">Breastfed within first hour</label>
+          <select id="breastfedAtBirth">
+            <option value="">Unknown / skip</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
       </div>
-      <p class="hint" style="margin-top:8px;">
-        Prototype only. Nothing is uploaded, stored, or shared. This is a local visualization tool for citizen-led pattern recording, not medical advice.
+
+      <label>First years</label>
+      <div class="field-row">
+        <div>
+          <label for="breastfedDuration">Breastfeeding duration (months)</label>
+          <input type="number" id="breastfedDuration" min="0" max="60">
+        </div>
+        <div>
+          <label for="formulaDuration">Formula use (months)</label>
+          <input type="number" id="formulaDuration" min="0" max="60">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="devConcerns">Developmental concerns</label>
+          <select id="devConcerns">
+            <option value="">None / unknown</option>
+            <option>Motor delays</option>
+            <option>Speech / language delays</option>
+            <option>Social / behavioral</option>
+            <option>Learning difficulties</option>
+            <option>Multiple</option>
+          </select>
+        </div>
+        <div>
+          <label for="siblingsOlder">Older siblings (count)</label>
+          <input type="number" id="siblingsOlder" min="0" max="15">
+        </div>
+        <div>
+          <label for="siblingsYounger">Younger siblings (count)</label>
+          <input type="number" id="siblingsYounger" min="0" max="15">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="earlyPets">Pets in home (first 5 years)</label>
+          <input type="text" id="earlyPets" placeholder="e.g., dogs, cats, farm animals, none">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="earlyHospitalizations">Hospitalizations first 5 years (count)</label>
+          <input type="number" id="earlyHospitalizations" min="0" max="50">
+        </div>
+        <div>
+          <label for="infantSeizures">Infant seizures</label>
+          <select id="infantSeizures">
+            <option value="">None / unknown</option>
+            <option>Febrile seizures</option>
+            <option>Infantile spasms</option>
+            <option>Both</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CHILDHOOD HEALTH & INFANT VACCINES (DETAILED, AS GIVEN) -->
+  <div class="section">
+    <div class="section-header">
+      <span>4. Childhood Health & Infant Vaccine Schedule</span>
+    </div>
+    <div class="section-body">
+      <label for="childhoodHealth">Childhood health summary</label>
+      <textarea id="childhoodHealth" placeholder="Frequent infections? Hospitalizations? Overall robust / fragile? Chronic conditions?"></textarea>
+
+      <h3 class="small">Infant / childhood vaccines (dose-level, as you remember)</h3>
+      <p class="hint">
+        If you don’t know the exact year, approximate. Leave blank if unknown / not received.
       </p>
-    </form>
+
+      <!-- Keep schedule exactly as specified: one text field per dose-year -->
+      <div class="field-row">
+        <div>
+          <label for="vitKBirth">Vitamin K at birth</label>
+          <select id="vitKBirth">
+            <option value="">Unknown</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div>
+          <label for="hepB1Year">Hep B dose 1 (at birth)</label>
+          <input type="number" id="hepB1Year" min="1900" max="2100" placeholder="year received">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="hepB2Year">Hep B dose 2 (2 month shots)</label>
+          <input type="number" id="hepB2Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="hepB3Year">Hep B dose 3 (6 month shots)</label>
+          <input type="number" id="hepB3Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="rota1Year">Rotavirus dose 1 (2 month shots)</label>
+          <input type="number" id="rota1Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="rota2Year">Rotavirus dose 2 (4 month shots)</label>
+          <input type="number" id="rota2Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="dtap1Year">DTaP dose 1 (2 month shots)</label>
+          <input type="number" id="dtap1Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="dtap2Year">DTaP dose 2 (4 month shots)</label>
+          <input type="number" id="dtap2Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="dtap3Year">DTaP dose 3 (6 month shots)</label>
+          <input type="number" id="dtap3Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="dtap4Year">DTaP dose 4 (15 month shots)</label>
+          <input type="number" id="dtap4Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="ipv1Year">Inactivated polio dose 1 (2 month shots)</label>
+          <input type="number" id="ipv1Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="ipv2Year">Inactivated polio dose 2 (4 month shots)</label>
+          <input type="number" id="ipv2Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="ipv3Year">Inactivated polio dose 3</label>
+          <input type="number" id="ipv3Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="hib1Year">Hib dose 1 (2 month shots)</label>
+          <input type="number" id="hib1Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="hib2Year">Hib dose 2 (4 month shots)</label>
+          <input type="number" id="hib2Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="pcv1Year">Pneumococcal dose 1 (2 month shots)</label>
+          <input type="number" id="pcv1Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="pcv2Year">Pneumococcal dose 2 (4 month shots)</label>
+          <input type="number" id="pcv2Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="pcv3Year">Pneumococcal dose 3 (6 month shots)</label>
+          <input type="number" id="pcv3Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="pcv4Year">Pneumococcal dose 4 (12 month shots)</label>
+          <input type="number" id="pcv4Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="mmr1Year">MMR dose 1 (12 month shots)</label>
+          <input type="number" id="mmr1Year" min="1900" max="2100">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="mmr2Year">MMR dose 2 (4 year shots)</label>
+          <input type="number" id="mmr2Year" min="1900" max="2100">
+        </div>
+        <div>
+          <label for="var1Year">Varicella dose 1 (12 month shots)</label>
+          <input type="number" id="var1Year" min="1900" max="2100">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ADOLESCENT / ADULT VACCINES -->
+  <div class="section">
+    <div class="section-header">
+      <span>5. Adolescent & Adult Vaccines</span>
+    </div>
+    <div class="section-body">
+      <label>COVID mRNA doses (if any)</label>
+      <div class="field-row">
+        <div>
+          <label for="covidDoseCount">Total mRNA doses</label>
+          <input type="number" id="covidDoseCount" min="0" max="20">
+        </div>
+        <div>
+          <label for="covidFirstYear">First dose year</label>
+          <input type="number" id="covidFirstYear" min="2000" max="2100">
+        </div>
+        <div>
+          <label for="covidLastYear">Most recent dose year</label>
+          <input type="number" id="covidLastYear" min="2000" max="2100">
+        </div>
+      </div>
+
+      <label>Other vaccines (lifetime)</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="HPV"> HPV</label>
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="Shingles"> Shingles</label>
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="Rabies"> Rabies</label>
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="Tetanus"> Tetanus (Td/Tdap)</label>
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="Other"> Other</label>
+        <label class="pill"><input type="checkbox" class="otherVaxChk" value="None"> None</label>
+      </div>
+
+      <label for="fluYears">Flu vaccines (years received)</label>
+      <textarea id="fluYears" placeholder="e.g., 2010, 2011, 2014, 2020–2023"></textarea>
+      <div class="field-row">
+        <div>
+          <label for="fluTotal">Estimated lifetime total flu doses</label>
+          <input type="number" id="fluTotal" min="0" max="100">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. HEALTH TIMELINE & TURNING POINTS -->
+  <div class="section">
+    <div class="section-header">
+      <span>6. Health Trajectory & Turning Points</span>
+    </div>
+    <div class="section-body">
+      <label>Childhood health</label>
+      <select id="childhoodHealthRating">
+        <option value="">Skip</option>
+        <option>Healthy</option>
+        <option>Occasionally sick</option>
+        <option>Frequently sick</option>
+        <option>Diagnosed with chronic condition</option>
+      </select>
+
+      <label>Adolescence health (13–18)</label>
+      <select id="adolescentHealthRating">
+        <option value="">Skip</option>
+        <option>Healthy</option>
+        <option>Occasionally sick</option>
+        <option>Frequently sick</option>
+        <option>Diagnosed with chronic condition</option>
+      </select>
+
+      <label>Past 5 years, you feel your health has:</label>
+      <select id="recentHealthChange">
+        <option value="">Skip</option>
+        <option>Improved</option>
+        <option>Stayed mostly the same</option>
+        <option>Gotten worse</option>
+        <option>Deteriorated severely</option>
+      </select>
+
+      <label for="symptomFrequency">I experience symptoms that concern or disrupt me</label>
+      <select id="symptomFrequency">
+        <option value="">Skip</option>
+        <option>Daily</option>
+        <option>Weekly</option>
+        <option>Monthly</option>
+        <option>A few times a year</option>
+        <option>Rarely</option>
+      </select>
+
+      <label for="turningPoint">Was there a point where your health took a notable turn for the worst?</label>
+      <textarea id="turningPoint" placeholder="If yes, describe when, your age, what changed (vaccine, medication, surgery, infection, trauma, pregnancy, move, etc.)."></textarea>
+    </div>
+  </div>
+
+  <!-- 7. DIAGNOSES & SYMPTOMS (LAST 5 YEARS) -->
+  <div class="section">
+    <div class="section-header">
+      <span>7. Diagnoses & Symptoms (Last 5 Years)</span>
+    </div>
+    <div class="section-body">
+      <p class="small">Separate what you’ve been formally diagnosed with vs what you experience as symptoms. Keep it simple: check everything that applies in the past 5 years.</p>
+
+      <h3 class="small">Diagnoses (ever told by a clinician)</h3>
+      <div class="pill-group">
+        <!-- Core diagnoses (short subset for preview; full list kept below) -->
+      </div>
+
+      <!-- Full diagnosis list as checkboxes -->
+      <label class="small">Check all diagnoses (clinician-diagnosed):</label>
+      <div class="pill-group">
+        <!-- Diagnoses group -->
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Autism"> Autism</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Depression"> Depression</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Anxiety"> Anxiety</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Diabetes"> Diabetes</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Asthma"> Asthma</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Eczema"> Eczema</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Psoriasis"> Psoriasis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="MCAS"> MCAS</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Narcolepsy"> Narcolepsy</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Insomnia"> Insomnia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Migraine"> Migraine</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Epilepsy"> Epilepsy</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Seizure disorder"> Seizure disorder</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="POTS"> POTS</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Dysautonomia"> Dysautonomia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Fibromyalgia"> Fibromyalgia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Chronic fatigue syndrome / ME"> Chronic fatigue syndrome / ME</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Functional neurological disorder"> Functional neurological disorder</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Multiple sclerosis"> Multiple sclerosis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="MOGAD"> MOGAD</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="ADEM"> ADEM</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Myasthenia gravis"> Myasthenia gravis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Guillain-Barre syndrome"> Guillain-Barre syndrome</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Transverse myelitis"> Transverse myelitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="ALS"> ALS</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Chiari malformation"> Chiari malformation</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Raynauds"> Raynauds</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Ehlers-Danlos syndrome"> Ehlers-Danlos syndrome</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Ankylosing spondylitis"> Ankylosing spondylitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Cerebral palsy"> Cerebral palsy</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Complex regional pain syndrome"> Complex regional pain syndrome</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Benign fasciculation syndrome"> Benign fasciculation syndrome</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Trigeminal neuralgia"> Trigeminal neuralgia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Encephalitis"> Encephalitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Hydrocephalus"> Hydrocephalus</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Meningitis"> Meningitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Psychosis"> Psychosis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Schizophrenia"> Schizophrenia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Bipolar disorder"> Bipolar disorder</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Lyme disease"> Lyme disease</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Lupus"> Lupus</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Hashimotos"> Hashimotos</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="PCOS"> PCOS</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Endometriosis"> Endometriosis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Adenomyosis"> Adenomyosis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Infertility"> Infertility</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Hypercholesterolemia"> High cholesterol</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Biliary dyskinesia"> Biliary dyskinesia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Addisons disease"> Addisons disease</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Prolactinoma"> Prolactinoma</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Brain cancer"> Brain cancer</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Lymphoma"> Lymphoma</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Tumor"> Tumor</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Granuloma"> Granuloma</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Crohns disease"> Crohns disease</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="IBS"> IBS</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="GERD"> GERD</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="CSF leak"> CSF leak</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Sepsis"> Sepsis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Myositis ossificans"> Myositis ossificans</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Heart failure"> Heart failure</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Heart attack"> Heart attack</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Stroke"> Stroke</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="TIA"> TIA</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Myocarditis"> Myocarditis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Pericarditis"> Pericarditis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Ventricular tachycardia"> Ventricular tachycardia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Mitral valve prolapse"> Mitral valve prolapse</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Pulmonary embolism"> Pulmonary embolism</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Cystic lung disease"> Cystic lung disease</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Thrombocytopenia"> Thrombocytopenia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Anemia"> Anemia</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Blood clots"> Blood clots</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Brain aneurysm"> Brain aneurysm</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Arthritis"> Arthritis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Bilateral sacroiliitis"> Bilateral sacroiliitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Gout"> Gout</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Acute kidney injury"> Acute kidney injury</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="IgA nephropathy"> IgA nephropathy</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Dyspnea diagnosis"> Chronic dyspnea</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Temporomandibular Joint Disorder"> TMJ disorder</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Lymphadenitis"> Lymphadenitis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Lymphedema"> Lymphedema</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="High cholesterol"> High cholesterol</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Costochondritis"> Costochondritis</label>
+        <label class="pill"><input type="checkbox" class="diagnosisChk" value="Frozen shoulder"> Frozen shoulder</label>
+      </div>
+
+      <h3 class="small">Symptoms / experiences (even if never diagnosed)</h3>
+      <label class="small">Check all symptoms / patterns you’ve experienced in the last 5 years:</label>
+      <div class="pill-group">
+        <!-- Symptoms group -->
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Sleep paralysis"> Sleep paralysis</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Out of body experiences"> Out of body experiences</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Dissociation (DPDR/DID)"> Dissociation (DPDR / DID)</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Sense of doom"> Sense of doom</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Dizziness"> Dizziness</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Heart palpitations"> Heart palpitations</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Chest pain"> Chest pain</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Joint pain"> Joint pain</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Numbness"> Numbness</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Loss of smell"> Loss of smell</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Loss of taste"> Loss of taste</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Geographic tongue"> Geographic tongue</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Health anxiety"> Health anxiety</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Visual snow"> Visual snow</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Tinnitus"> Tinnitus</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Auditory hallucinations"> Auditory hallucinations</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Visual hallucinations"> Visual hallucinations</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Shadow figures"> Shadow figures</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Entities"> Entities / sensed presences</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Vertigo"> Vertigo</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Balance issues"> Balance issues</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Myoclonic jerks"> Myoclonic jerks</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Essential tremor"> Essential tremor</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Chorea"> Chorea</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Dystonia"> Dystonia</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Aphasia"> Aphasia</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Aphagia"> Aphagia</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Deja vu"> Deja vu</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Brain fog"> Brain fog</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Stutter"> Stutter</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Alice in Wonderland syndrome"> Alice in Wonderland syndrome</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Paralysis"> Paralysis episodes</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Nerve pain"> Nerve pain</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Myopia"> Myopia</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Optic neuritis"> Optic neuritis</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Vision loss"> Vision loss</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Hearing loss"> Hearing loss</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Hair loss"> Hair loss</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Severe urticaria"> Severe urticaria</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Blood in urine"> Blood in urine</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Blood in stool"> Blood in stool</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Period clots"> Period clots</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Period abnormalities"> Period abnormalities</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Miscarriage"> Miscarriage</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Abortion"> Abortion</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Sterilization"> Sterilization</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Hormone therapy"> Hormone therapy</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Hormone therapy (gender transition)"> Hormone therapy (gender transition)</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Epididymitis"> Epididymitis</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Varicocele"> Varicocele</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Diarrhea"> Diarrhea</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Vomiting"> Vomiting</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Dyspnea"> Dyspnea / shortness of breath</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Muscle weakness"> Muscle weakness</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Muscle atrophy"> Muscle atrophy</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Urinary retention"> Urinary retention</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Neuropathy"> Neuropathy</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Bell palsy"> Bell Palsy</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Temporomandibular symptoms"> Jaw / TMJ pain</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Tonsil / throat abnormal appearance"> Tonsil / throat abnormal appearance</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Dyspnea episodes"> Episodic breathlessness</label>
+        <label class="pill"><input type="checkbox" class="symptomChk" value="Pancreatitis"> Pancreatitis</label>
+      </div>
+
+      <label for="worstPain" class="small">Memory of most intense pain ever felt (optional)</label>
+      <textarea id="worstPain" placeholder="What happened, when, and how would you describe it?"></textarea>
+    </div>
+  </div>
+
+  <!-- 8. MEDICATIONS (RX) -->
+  <div class="section">
+    <div class="section-header">
+      <span>8. Prescription Medications</span>
+    </div>
+    <div class="section-body">
+      <p class="small">List key prescriptions, with approx years of use.</p>
+      <label for="prescribedMeds">Prescriptions (past & current)</label>
+      <textarea id="prescribedMeds" placeholder="e.g., SSRIs (Lexapro 3 years), stimulants (Adderall 5 years), Ozempic 1 year, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 9. OTC & SUPPLEMENTS -->
+  <div class="section">
+    <div class="section-header">
+      <span>9. OTC & Supplements</span>
+    </div>
+    <div class="section-body">
+      <label>Frequently used OTC meds (pattern over life)</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="otcChk" value="Tylenol/acetaminophen"> Tylenol / acetaminophen</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Advil/ibuprofen"> Advil / ibuprofen</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Excedrin"> Excedrin</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Miralax/laxatives"> Miralax / laxatives</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Pepto-Bismol"> Pepto-Bismol</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Alka-Seltzer"> Alka-Seltzer</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Melatonin"> Melatonin</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Mucinex"> Mucinex</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Benadryl"> Benadryl</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="Other OTC"> Other OTC</label>
+        <label class="pill"><input type="checkbox" class="otcChk" value="MinimalOTC"> Rarely / never OTC</label>
+      </div>
+
+      <label for="supplements">Supplements / vitamins (current or recent)</label>
+      <textarea id="supplements" placeholder="e.g., Vitamin D, magnesium, zinc, omega-3, creatine, collagen, probiotics, etc. Note if long term."></textarea>
+
+      <label for="antibiotics">Antibiotic usage pattern</label>
+      <textarea id="antibiotics" placeholder="e.g., multiple courses in childhood, long-term antibiotics for acne, rarely used, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 10. LIFESTYLE: DIET, SLEEP, ACTIVITY, SUBSTANCE USE -->
+  <div class="section">
+    <div class="section-header">
+      <span>10. Lifestyle: Diet, Sleep, Activity, Substances</span>
+    </div>
+    <div class="section-body">
+      <label for="dietPattern">Diet pattern (lifetime and recent)</label>
+      <textarea id="dietPattern" placeholder="e.g., highly processed, mostly whole foods, vegetarian/vegan, high sugar, big shifts and when they happened."></textarea>
+
+      <div class="field-row">
+        <div>
+          <label for="processedMeals">Processed / packaged meals per week</label>
+          <input type="number" id="processedMeals" min="0" max="70">
+        </div>
+        <div>
+          <label for="fastFoodMeals">Fast food meals per week</label>
+          <input type="number" id="fastFoodMeals" min="0" max="70">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="sugarySoda">Sugary sodas per week</label>
+          <input type="number" id="sugarySoda" min="0" max="70">
+        </div>
+        <div>
+          <label for="dietSoda">Diet / zero-sugar sodas per week</label>
+          <input type="number" id="dietSoda" min="0" max="70">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="microwaveFreq">Microwave use frequency</label>
+          <select id="microwaveFreq">
+            <option value="">Skip</option>
+            <option>Never</option>
+            <option>A few times per month</option>
+            <option>A few times per week</option>
+            <option>Daily</option>
+            <option>Multiple times per day</option>
+          </select>
+        </div>
+        <div>
+          <label for="alcoholUse">Alcohol use (current typical)</label>
+          <select id="alcoholUse">
+            <option value="">Skip</option>
+            <option>None</option>
+            <option>Occasional</option>
+            <option>Weekly</option>
+            <option>Most days</option>
+            <option>Daily / heavy</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Sleep</label>
+      <div class="field-row">
+        <div>
+          <label for="sleepHours">Average nightly sleep (hours)</label>
+          <input type="number" id="sleepHours" min="0" max="12" step="0.5">
+        </div>
+        <div>
+          <label>Sleep quality</label>
+          <div class="slider-row">
+            <input type="range" id="sleepQuality" min="1" max="10" value="5">
+            <span id="sleepQualityLabel" class="small">5</span>
+          </div>
+        </div>
+      </div>
+
+      <label>Activity</label>
+      <div class="field-row">
+        <div>
+          <label for="activeDays">Days per week with moderate–vigorous activity</label>
+          <input type="number" id="activeDays" min="0" max="7">
+        </div>
+        <div>
+          <label>Activity level</label>
+          <div class="slider-row">
+            <input type="range" id="activityLevel" min="1" max="10" value="5">
+            <span id="activityLevelLabel" class="small">5</span>
+          </div>
+        </div>
+      </div>
+
+      <label>Substance use (general)</label>
+      <textarea id="substances" placeholder="Brief overview: alcohol, nicotine, cannabis, other substances, by life stage if relevant."></textarea>
+    </div>
+  </div>
+
+  <!-- 11. EMF, LIGHT, POLLUTION, CHEMICAL EXPOSURE -->
+  <div class="section">
+    <div class="section-header">
+      <span>11. EMF, Light & Environmental Exposure</span>
+    </div>
+    <div class="section-body">
+      <label>EMF exposure (simple scalar estimate)</label>
+      <div class="field-row">
+        <div>
+          <label for="yearsNearTowers" class="small">Years living very close to cell towers / high-voltage lines</label>
+          <input type="number" id="yearsNearTowers" min="0" max="100" placeholder="0">
+        </div>
+        <div>
+          <label for="yearsWifiBedroom" class="small">Years sleeping with Wi-Fi router in bedroom / other side of wall</label>
+          <input type="number" id="yearsWifiBedroom" min="0" max="100" placeholder="0">
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label for="hoursPhoneOnBody" class="small">Average hours per day phone is on your body</label>
+          <input type="number" id="hoursPhoneOnBody" min="0" max="24" step="0.5" placeholder="0">
+        </div>
+        <div>
+          <label for="otherEmf" class="small">Other EMF exposures (workplace, devices, etc.)</label>
+          <input type="text" id="otherEmf" placeholder="">
+        </div>
+      </div>
+      <div class="button-row">
+        <button type="button" class="secondary" onclick="calculateEmfScore()">Calculate EMF score</button>
+        <span id="emfScoreDisplay" class="small"></span>
+      </div>
+
+      <label>Light & pollution exposure</label>
+      <div class="field-row">
+        <div>
+          <label for="dailyDaylight" class="small">Average daylight time outdoors (hours/day)</label>
+          <input type="number" id="dailyDaylight" min="0" max="12" step="0.5">
+        </div>
+        <div>
+          <label for="screenHours" class="small">Screen time (phone/computer) hours/day</label>
+          <input type="number" id="screenHours" min="0" max="24" step="0.5">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="airPollution" class="small">Typical air quality / pollution</label>
+          <select id="airPollution">
+            <option value="">Skip</option>
+            <option>Low / rural</option>
+            <option>Moderate</option>
+            <option>High (city / industrial)</option>
+          </select>
+        </div>
+        <div>
+          <label for="chemicalExposure" class="small">Frequent exposure to pesticides / cleaning chemicals / metals / artificial scents?</label>
+          <select id="chemicalExposure">
+            <option value="">Skip</option>
+            <option>Yes</option>
+            <option>No</option>
+            <option>Unsure</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="small">Products used weekly</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented candles"> Scented candles</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented body lotion"> Scented body lotion</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Perfume/cologne"> Perfume / cologne</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented deodorant"> Scented deodorant</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented body wash"> Scented body wash</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented laundry detergent"> Scented laundry detergent</label>
+        <label class="pill"><input type="checkbox" class="envProdChk" value="Scented cleaning products"> Scented cleaning products</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. FAMILY HISTORY -->
+  <div class="section">
+    <div class="section-header">
+      <span>12. Family History</span>
+    </div>
+    <div class="section-body">
+      <label for="familyHistory">Family history (parents, siblings, grandparents) of chronic illness</label>
+      <textarea id="familyHistory" placeholder="e.g., mother with autoimmune disease, father with heart disease, siblings with allergies, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 13. TESTING, IMAGING, SURGERIES, HOSPITALIZATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <span>13. Tests, Imaging, Surgeries, Hospitalizations</span>
+    </div>
+    <div class="section-body">
+      <label>Imaging / diagnostics ever done</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="testChk" value="MRI"> MRI</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="CT scan"> CT scan</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="X-ray"> X-ray</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Ultrasound"> Ultrasound</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Doppler"> Doppler</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="EEG"> EEG</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="ECG"> ECG / EKG</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Holter monitor"> Holter monitor</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Sleep study"> Sleep study</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Endoscopy"> Endoscopy</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Colonoscopy"> Colonoscopy</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Pap smear"> Pap smear</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Mammogram"> Mammogram</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Prostate exam"> Prostate exam</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="Genetic testing"> Genetic testing</label>
+        <label class="pill"><input type="checkbox" class="testChk" value="CSF lumbar tap"> CSF lumbar tap</label>
+      </div>
+
+      <label>Surgeries and major procedures</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Appendectomy"> Appendectomy</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Wisdom tooth removal"> Wisdom tooth removal</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Tonsillectomy"> Tonsillectomy</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Cholecystectomy"> Cholecystectomy</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Bone fixation"> Bone fixation</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Spinal fusion"> Spinal fusion</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Cardiac ablation"> Cardiac ablation</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Hysterectomy"> Hysterectomy</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="C-section"> C-section</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Laparoscopy"> Laparoscopy</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="Other major surgery"> Other major surgery</label>
+        <label class="pill"><input type="checkbox" class="surgeryChk" value="None"> None</label>
+      </div>
+
+      <label for="surgeriesDetail">Surgeries timeline (approx dates, reasons, outcomes)</label>
+      <textarea id="surgeriesDetail" placeholder="e.g., tonsillectomy at 7, appendectomy at 12, spinal fusion at 25, etc."></textarea>
+
+      <label for="hospitalizations">Hospitalizations (more than 24 hours)</label>
+      <textarea id="hospitalizations" placeholder="Approx number, years, and reasons. Note if >7 days, ICU, intubation, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 14. RECENT INFECTIONS & LAB / GENETIC MARKERS -->
+  <div class="section">
+    <div class="section-header">
+      <span>14. Recent Infections & Lab / Genetic Findings</span>
+    </div>
+    <div class="section-body">
+      <label for="recentInfections">Infections / acute diagnoses in past 5 years (approx counts)</label>
+      <textarea id="recentInfections" placeholder="e.g., COVID 3x, flu 1x, strep 2x, mono once, RSV once, etc."></textarea>
+
+      <label for="labMarkers">Lab / genetic findings ever reported</label>
+      <textarea id="labMarkers" placeholder="e.g., positive ANA, eosinophilia, abnormal lymphocytes/neutrophils, HLA-B27 positive, MTHFR positive, BRCA1/2 positive, demyelinating lesions, FLAIR hyperintensities, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 15. DEVICES & AIDS -->
+  <div class="section">
+    <div class="section-header">
+      <span>15. Devices & Aids</span>
+    </div>
+    <div class="section-body">
+      <label>Devices you use</label>
+      <div class="pill-group">
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Glasses-daily"> Glasses (daily)</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Glasses-reading"> Glasses (reading only)</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Contacts"> Contacts</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="CPAP"> CPAP / BiPAP</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Inhaler"> Inhaler</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Blood sugar monitor"> Blood sugar monitor</label>
+        <label class="pill"><input type="checkbox" class="deviceChk" value="Injectable medication"> Injectable medication</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. MEDICAL SYSTEM EXPERIENCE & SATISFACTION -->
+  <div class="section">
+    <div class="section-header">
+      <span>16. Medical System Experience & Satisfaction</span>
+    </div>
+    <div class="section-body">
+      <label>Have you ever been told by a clinician that your symptoms are anxiety / psychosomatic?</label>
+      <select id="psychosomaticLabel">
+        <option value="">Skip</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label>Have you been told your condition is genetic without clear proof?</label>
+      <select id="geneticLabel">
+        <option value="">Skip</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label>Have you heard the word “idiopathic” (no known cause) used for your condition?</label>
+      <select id="idiopathicLabel">
+        <option value="">Skip</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label>Satisfaction with doctors (1–10)</label>
+      <div class="field-row">
+        <div>
+          <label class="small">Ability to identify the problem</label>
+          <div class="slider-row">
+            <input type="range" id="docIdentify" min="1" max="10" value="5">
+            <span id="docIdentifyLabel" class="small">5</span>
+          </div>
+        </div>
+        <div>
+          <label class="small">Ability to listen with concern</label>
+          <div class="slider-row">
+            <input type="range" id="docListen" min="1" max="10" value="5">
+            <span id="docListenLabel" class="small">5</span>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label class="small">Ability to reduce symptoms</label>
+          <div class="slider-row">
+            <input type="range" id="docReduce" min="1" max="10" value="5">
+            <span id="docReduceLabel" class="small">5</span>
+          </div>
+        </div>
+        <div>
+          <label class="small">Ability to improve overall health</label>
+          <div class="slider-row">
+            <input type="range" id="docImprove" min="1" max="10" value="5">
+            <span id="docImproveLabel" class="small">5</span>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label class="small">Ability to teach you how to heal</label>
+          <div class="slider-row">
+            <input type="range" id="docTeach" min="1" max="10" value="5">
+            <span id="docTeachLabel" class="small">5</span>
+          </div>
+        </div>
+        <div>
+          <label class="small">Overall satisfaction with diagnosis & progress</label>
+          <div class="slider-row">
+            <input type="range" id="docOverall" min="1" max="10" value="5">
+            <span id="docOverallLabel" class="small">5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. EMOTIONAL & PHYSICAL TRAUMA -->
+  <div class="section">
+    <div class="section-header">
+      <span>17. Emotional & Physical Trauma</span>
+    </div>
+    <div class="section-body">
+      <label class="small">On a scale of 1–10, how would you rate your ability to emotionally regulate?</label>
+      <div class="slider-row">
+        <input type="range" id="emotionalRegulation" min="1" max="10" value="5">
+        <span id="emotionalRegulationLabel" class="small">5</span>
+      </div>
+
+      <label class="small">On a scale of 1–10, emotional trauma across your life</label>
+      <div class="slider-row">
+        <input type="range" id="emotionalTrauma" min="1" max="10" value="5">
+        <span id="emotionalTraumaLabel" class="small">5</span>
+      </div>
+
+      <label class="small">On a scale of 1–10, physical trauma across your life</label>
+      <div class="slider-row">
+        <input type="range" id="physicalTrauma" min="1" max="10" value="5">
+        <span id="physicalTraumaLabel" class="small">5</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18. OPEN NARRATIVE & MESSAGE -->
+  <div class="section">
+    <div class="section-header">
+      <span>18. Narrative & Message</span>
+    </div>
+    <div class="section-body">
+      <label for="keyTurningPoints">Key turning points in your health story</label>
+      <textarea id="keyTurningPoints" placeholder="Vaccine, infection, surgery, accident, trauma, exposure, medication, pregnancy, etc. Before vs after."></textarea>
+
+      <label for="selfAssessment">How you currently understand your health</label>
+      <textarea id="selfAssessment" placeholder="Your working theory. What feels connected? What has been ignored?"></textarea>
+
+      <label for="messageToOthers">Message to others reading cases like yours</label>
+      <textarea id="messageToOthers" placeholder="What would you want someone with similar patterns to know?"></textarea>
+    </div>
+  </div>
+
+  <!-- 19. DOCUMENT UPLOAD -->
+  <div class="section">
+    <div class="section-header">
+      <span>19. Document Upload</span>
+    </div>
+    <div class="section-body">
+      <label for="uploadedDocs">Upload redacted documents (optional)</label>
+      <input type="file" id="uploadedDocs" multiple>
+      <div class="hint">No names, no addresses. Redact identifiers before uploading. Prototype only: files are not transmitted, just listed for preview.</div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-row">
+    <button type="button" class="primary" onclick="renderPreview()">Preview case</button>
+    <button type="reset" class="secondary" onclick="clearPreview()">Clear form & preview</button>
+  </div>
+  <p class="hint" style="margin-top:8px;">
+    This is a prototype. Nothing is saved or sent anywhere. Preview exists only in your browser.
+  </p>
+</form>
+
+
   </section>
+
 
   <section id="previewColumn" class="column">
     <h2>Case Preview</h2>
     <div id="previewContent">
       <p class="empty-state">
-        Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others in a future ledger.
+        Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others.
       </p>
     </div>
   </section>
 </main>
 
-<footer>
-  <p>
-    Citizen Health Ledger is a citizen-anchored concept: a way to preserve unfiltered lived experience in a structured form.
-    This prototype is for demonstration and design only. It does not diagnose, treat, or establish causation.
-  </p>
-  <p>
-    Any future production system must comply with privacy law, data ethics, and independent oversight. This page is a static mockup
-    that runs entirely in your browser.
-  </p>
-</footer>
 
 <script>
   function getCheckedValues(selector) {
@@ -581,202 +1481,243 @@
     return values;
   }
 
-  function calculateEmfScore() {
-    const yearsNearTowers = parseFloat(document.getElementById('yearsNearTowers').value) || 0;
-    const yearsWifiBedroom = parseFloat(document.getElementById('yearsWifiBedroom').value) || 0;
-    const hoursPhoneOnBody = parseFloat(document.getElementById('hoursPhoneOnBody').value) || 0;
-    const score = (yearsNearTowers * 3) + (yearsWifiBedroom * 2) + (hoursPhoneOnBody * 1);
-    const label =
-      score === 0 ? "EMF score: 0 (minimal reported exposures)" :
-      score < 30 ? `EMF score: ${score.toFixed(1)} (low–moderate lifetime exposure)` :
-      score < 80 ? `EMF score: ${score.toFixed(1)} (moderate–high lifetime exposure)` :
-      `EMF score: ${score.toFixed(1)} (high lifetime exposure)`;
-    document.getElementById('emfScoreDisplay').textContent = label;
+
+function calculateEmfScore() {
+const yearsNearTowers = parseFloat(document.getElementById('yearsNearTowers').value) || 0;
+const yearsWifiBedroom = parseFloat(document.getElementById('yearsWifiBedroom').value) || 0;
+const hoursPhoneOnBody = parseFloat(document.getElementById('hoursPhoneOnBody').value) || 0;
+const score = (yearsNearTowers * 3) + (yearsWifiBedroom * 2) + (hoursPhoneOnBody * 1);
+const label =
+score === 0 ? "EMF score: 0 (minimal reported exposures)" :
+score < 30 ? EMF score: ${score.toFixed(1)} (low–moderate lifetime exposure) :
+score < 80 ? EMF score: ${score.toFixed(1)} (moderate–high lifetime exposure) :
+EMF score: ${score.toFixed(1)} (high lifetime exposure) ;
+document.getElementById('emfScoreDisplay').textContent = label;
+}
+
+function clearPreview() {
+document.getElementById('previewContent').innerHTML =
+' <p class="empty-state"> Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others. </p> ';
+}
+
+// simple slider label sync
+function syncSlider(id, labelId) {
+const el = document.getElementById(id);
+const lab = document.getElementById(labelId);
+if (!el || !lab) return;
+el.addEventListener('input', () => {
+lab.textContent = el.value;
+});
+}
+
+['sleepQuality','activityLevel','docIdentify','docListen','docReduce','docImprove','docTeach','docOverall',
+'emotionalRegulation','emotionalTrauma','physicalTrauma'].forEach(id => {
+syncSlider(id, id + 'Label');
+});
+
+function renderPreview() {
+const get = id => {
+const el = document.getElementById(id);
+return el ? (el.value || '').trim() : '';
+};
+
+const caseLabel = get('caseLabel') || 'Untitled case';
+const birthYear = get('birthYear');
+const age = get('age');
+const biologicalSex = get('biologicalSex');
+const genderIdentity = get('genderIdentity');
+const country = get('country');
+const usRegion = get('usRegion');
+const urbanRural = get('urbanRural');
+const childhoodHealthRating = get('childhoodHealthRating');
+const recentHealthChange = get('recentHealthChange');
+const symptomFrequency = get('symptomFrequency');
+
+const symptomList = getCheckedValues('.symptomChk');
+const diagnosisList = getCheckedValues('.diagnosisChk');
+const surgeryList = getCheckedValues('.surgeryChk');
+const otcList = getCheckedValues('.otcChk');
+const deviceList = getCheckedValues('.deviceChk');
+const testList = getCheckedValues('.testChk');
+const otherVaxList = getCheckedValues('.otherVaxChk');
+const envProdList = getCheckedValues('.envProdChk');
+
+const emfScoreText = document.getElementById('emfScoreDisplay').textContent;
+
+const files = document.getElementById('uploadedDocs').files;
+const fileNames = [];
+for (let i = 0; i < files.length; i++) fileNames.push(files[i].name);
+
+const preview = [];
+
+// Basic meta
+preview.push(`<div class="preview-meta"><strong>${escapeHtml(caseLabel)}</strong></div>`);
+const metaBits = [];
+if (birthYear) metaBits.push(`Birth year: ${escapeHtml(birthYear)}`);
+if (age) metaBits.push(`Age: ${escapeHtml(age)}`);
+if (biologicalSex) metaBits.push(`Sex: ${escapeHtml(biologicalSex)}`);
+if (genderIdentity) metaBits.push(`Gender identity: ${escapeHtml(genderIdentity)}`);
+if (country) metaBits.push(`Country: ${escapeHtml(country)}`);
+if (usRegion) metaBits.push(`US region: ${escapeHtml(usRegion)}`);
+if (urbanRural) metaBits.push(`Env: ${escapeHtml(urbanRural)}`);
+if (metaBits.length) {
+  preview.push(`<div class="preview-item">${metaBits.join(" · ")}</div>`);
+}
+
+// Health trajectory
+preview.push(`<div class="preview-section"><h3>Health Trajectory</h3>`);
+if (childhoodHealthRating) preview.push(`<div class="preview-item"><strong>Childhood health:</strong> ${escapeHtml(childhoodHealthRating)}</div>`);
+if (recentHealthChange) preview.push(`<div class="preview-item"><strong>Past 5 years:</strong> ${escapeHtml(recentHealthChange)}</div>`);
+if (symptomFrequency) preview.push(`<div class="preview-item"><strong>Symptom frequency:</strong> ${escapeHtml(symptomFrequency)}</div>`);
+preview.push(`</div>`);
+
+// Vaccines summary (short)
+const covidDoseCount = get('covidDoseCount');
+const fluTotal = get('fluTotal');
+preview.push(`<div class="preview-section"><h3>Vaccination Summary</h3>`);
+if (covidDoseCount || fluTotal || otherVaxList.length) {
+  if (covidDoseCount) preview.push(`<div class="preview-item"><strong>COVID mRNA doses:</strong> ${escapeHtml(covidDoseCount)}</div>`);
+  if (fluTotal) preview.push(`<div class="preview-item"><strong>Flu doses (est):</strong> ${escapeHtml(fluTotal)}</div>`);
+  if (otherVaxList.length) {
+    preview.push(`<div class="preview-item tag-list"><strong>Other vaccines:</strong> ${otherVaxList.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join(" ")}</div>`);
   }
+} else {
+  preview.push(`<div class="preview-item small">No vaccine details summarized here. (Full schedule stored in case.)</div>`);
+}
+preview.push(`</div>`);
 
-  function clearPreview() {
-    document.getElementById('previewContent').innerHTML =
-      '<p class="empty-state">Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others in a future ledger.</p>';
-  }
+// Diagnoses & symptoms
+preview.push(`<div class="preview-section"><h3>Diagnoses & Symptoms (Last 5 Years)</h3>`);
+if (diagnosisList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>Diagnoses:</strong> ${diagnosisList.map(d => `<span class="tag">${escapeHtml(d)}</span>`).join(" ")}</div>`);
+}
+if (symptomList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>Symptoms:</strong> ${symptomList.map(s => `<span class="tag">${escapeHtml(s)}</span>`).join(" ")}</div>`);
+}
+if (!diagnosisList.length && !symptomList.length) {
+  preview.push(`<div class="preview-item small">No diagnoses or symptoms selected.</div>`);
+}
+preview.push(`</div>`);
 
-  function renderPreview() {
-    const get = id => document.getElementById(id).value.trim();
+// Meds & OTC
+const prescribedMeds = get('prescribedMeds');
+const supplements = get('supplements');
+const antibiotics = get('antibiotics');
+preview.push(`<div class="preview-section"><h3>Medications, OTC & Supplements</h3>`);
+if (prescribedMeds) preview.push(`<div class="preview-item"><strong>Prescriptions:</strong> ${escapeHtml(prescribedMeds)}</div>`);
+if (otcList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>OTC patterns:</strong> ${otcList.map(o => `<span class="tag">${escapeHtml(o)}</span>`).join(" ")}</div>`);
+}
+if (supplements) preview.push(`<div class="preview-item"><strong>Supplements:</strong> ${escapeHtml(supplements)}</div>`);
+if (antibiotics) preview.push(`<div class="preview-item"><strong>Antibiotic history:</strong> ${escapeHtml(antibiotics)}</div>`);
+if (!prescribedMeds && !otcList.length && !supplements && !antibiotics) {
+  preview.push(`<div class="preview-item small">No medication/OTC/supplement data provided.</div>`);
+}
+preview.push(`</div>`);
 
-    const caseLabel = get('caseLabel') || 'Untitled case';
-    const ageRange = document.getElementById('ageRange').value;
-    const birthYear = get('birthYear');
-    const biologicalSex = document.getElementById('biologicalSex').value;
-    const genderIdentity = get('genderIdentity');
-    const state = get('state');
-    const bmi = get('bmi');
+// Lifestyle & environment
+const dietPattern = get('dietPattern');
+const processedMeals = get('processedMeals');
+const fastFoodMeals = get('fastFoodMeals');
+const sleepHours = get('sleepHours');
+const sleepQuality = get('sleepQuality');
+const activeDays = get('activeDays');
+const activityLevel = get('activityLevel');
+const emfBits = [];
+const yearsNearTowers = get('yearsNearTowers');
+const yearsWifiBedroom = get('yearsWifiBedroom');
+const hoursPhoneOnBody = get('hoursPhoneOnBody');
+const chemicalExposure = get('chemicalExposure');
+const airPollution = get('airPollution');
+if (yearsNearTowers) emfBits.push(`Years near towers/lines: ${escapeHtml(yearsNearTowers)}`);
+if (yearsWifiBedroom) emfBits.push(`Years with Wi-Fi by bed/wall: ${escapeHtml(yearsWifiBedroom)}`);
+if (hoursPhoneOnBody) emfBits.push(`Hours/day phone on body: ${escapeHtml(hoursPhoneOnBody)}`);
 
-    const birthType = get('birthType');
-    const earlyChildhoodHealth = get('earlyChildhoodHealth');
-    const childhoodVaccinesSummary = get('childhoodVaccinesSummary');
+preview.push(`<div class="preview-section"><h3>Lifestyle & Environment</h3>`);
+if (dietPattern) preview.push(`<div class="preview-item"><strong>Diet:</strong> ${escapeHtml(dietPattern)}</div>`);
+const lifestyleBits = [];
+if (processedMeals) lifestyleBits.push(`Processed meals/week: ${escapeHtml(processedMeals)}`);
+if (fastFoodMeals) lifestyleBits.push(`Fast food/week: ${escapeHtml(fastFoodMeals)}`);
+if (sleepHours) lifestyleBits.push(`Sleep hours/night: ${escapeHtml(sleepHours)}`);
+if (sleepQuality) lifestyleBits.push(`Sleep quality (1–10): ${escapeHtml(sleepQuality)}`);
+if (activeDays) lifestyleBits.push(`Active days/week: ${escapeHtml(activeDays)}`);
+if (activityLevel) lifestyleBits.push(`Activity level (1–10): ${escapeHtml(activityLevel)}`);
+if (lifestyleBits.length) {
+  preview.push(`<div class="preview-item">${lifestyleBits.join(" · ")}</div>`);
+}
+if (emfBits.length) {
+  preview.push(`<div class="preview-item"><strong>EMF exposure:</strong> ${emfBits.join(" · ")}</div>`);
+}
+if (emfScoreText) preview.push(`<div class="preview-item small">${escapeHtml(emfScoreText)}</div>`);
+if (chemicalExposure) preview.push(`<div class="preview-item"><strong>Chemical exposure:</strong> ${escapeHtml(chemicalExposure)}</div>`);
+if (airPollution) preview.push(`<div class="preview-item"><strong>Air quality:</strong> ${escapeHtml(airPollution)}</div>`);
+if (envProdList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>Scented products:</strong> ${envProdList.map(e => `<span class="tag">${escapeHtml(e)}</span>`).join(" ")}</div>`);
+}
+preview.push(`</div>`);
 
-    const vaccineList = getCheckedValues('.vaccineChk');
-    const vaccineDosesDetail = get('vaccineDosesDetail');
-    const postVaccineEvents = get('postVaccineEvents');
+// Tests / surgeries
+preview.push(`<div class="preview-section"><h3>Tests, Surgeries, Hospitalizations</h3>`);
+if (testList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>Tests/imaging:</strong> ${testList.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join(" ")}</div>`);
+}
+if (surgeryList.length) {
+  preview.push(`<div class="preview-item tag-list"><strong>Surgeries:</strong> ${surgeryList.map(s => `<span class="tag">${escapeHtml(s)}</span>`).join(" ")}</div>`);
+}
+const surgeriesDetail = get('surgeriesDetail');
+const hospitalizations = get('hospitalizations');
+if (surgeriesDetail) preview.push(`<div class="preview-item"><strong>Surgeries timeline:</strong> ${escapeHtml(surgeriesDetail)}</div>`);
+if (hospitalizations) preview.push(`<div class="preview-item"><strong>Hospitalizations:</strong> ${escapeHtml(hospitalizations)}</div>`);
+if (!testList.length && !surgeryList.length && !surgeriesDetail && !hospitalizations) {
+  preview.push(`<div class="preview-item small">No test/surgery/hospitalization details.</div>`);
+}
+preview.push(`</div>`);
 
-    const surgeryList = getCheckedValues('.surgeryChk');
-    const surgeriesDetail = get('surgeriesDetail');
+// Devices
+preview.push(`<div class="preview-section"><h3>Devices & Aids</h3>`);
+if (deviceList.length) {
+  preview.push(`<div class="preview-item tag-list">${deviceList.map(d => `<span class="tag">${escapeHtml(d)}</span>`).join(" ")}</div>`);
+} else {
+  preview.push(`<div class="preview-item small">No devices reported.</div>`);
+}
 
-    const conditionList = getCheckedValues('.conditionChk');
-    const conditionsDetail = get('conditionsDetail');
-    const worstPain = get('worstPain');
+// Narrative
+const keyTurningPoints = get('keyTurningPoints');
+const selfAssessment = get('selfAssessment');
+const messageToOthers = get('messageToOthers');
+preview.push(`<div class="preview-section"><h3>Narrative</h3>`);
+if (keyTurningPoints) preview.push(`<div class="preview-item"><strong>Turning points:</strong> ${escapeHtml(keyTurningPoints)}</div>`);
+if (selfAssessment) preview.push(`<div class="preview-item"><strong>Self-assessment:</strong> ${escapeHtml(selfAssessment)}</div>`);
+if (messageToOthers) preview.push(`<div class="preview-item"><strong>Message to others:</strong> ${escapeHtml(messageToOthers)}</div>`);
+if (!keyTurningPoints && !selfAssessment && !messageToOthers) {
+  preview.push(`<div class="preview-item small">No narrative added.</div>`);
+}
+preview.push(`</div>`);
 
-    const prescribedMeds = get('prescribedMeds');
-    const otcList = getCheckedValues('.otcChk');
-    const antibiotics = get('antibiotics');
-    const substances = get('substances');
+// Docs
+preview.push(`<div class="preview-section"><h3>Documents</h3>`);
+if (fileNames.length) {
+  preview.push(`<ul class="file-list">${fileNames.map(f => `<li>${escapeHtml(f)}</li>`).join("")}</ul>`);
+} else {
+  preview.push(`<div class="preview-item small">No documents attached.</div>`);
+}
 
-    const dietPattern = get('dietPattern');
-    const movementSleep = get('movementSleep');
-    const yearsNearTowers = get('yearsNearTowers');
-    const yearsWifiBedroom = get('yearsWifiBedroom');
-    const hoursPhoneOnBody = get('hoursPhoneOnBody');
-    const otherEmf = get('otherEmf');
-    const emfScoreText = document.getElementById('emfScoreDisplay').textContent;
+document.getElementById('previewContent').innerHTML = preview.join("");
 
-    const doctorVisitFrequency = get('doctorVisitFrequency');
-    const bloodworkSummary = get('bloodworkSummary');
 
-    const keyTurningPoints = get('keyTurningPoints');
-    const selfAssessment = get('selfAssessment');
-    const messageToOthers = get('messageToOthers');
+}
 
-    const files = document.getElementById('uploadedDocs').files;
-    const fileNames = [];
-    for (let i = 0; i < files.length; i++) {
-      fileNames.push(files[i].name);
-    }
+function escapeHtml(str) {
+return str
+.replace(/&/g, "&")
+.replace(/</g, "<")
+.replace(/>/g, ">")
+.replace(/"/g, """)
+.replace(/'/g, "'");
+}
 
-    const preview = [];
-
-    // Header / meta
-    preview.push(`<div class="preview-meta"><strong>${escapeHtml(caseLabel)}</strong></div>`);
-    const metaBits = [];
-    if (ageRange) metaBits.push(`Age range: ${escapeHtml(ageRange)}`);
-    if (birthYear) metaBits.push(`Birth year: ${escapeHtml(birthYear)}`);
-    if (biologicalSex) metaBits.push(`Biological sex: ${escapeHtml(biologicalSex)}`);
-    if (genderIdentity) metaBits.push(`Gender identity: ${escapeHtml(genderIdentity)}`);
-    if (state) metaBits.push(`Region: ${escapeHtml(state)}`);
-    if (bmi) metaBits.push(`BMI / build: ${escapeHtml(bmi)}`);
-    if (metaBits.length) {
-      preview.push(`<div class="preview-item">${metaBits.join(" · ")}</div>`);
-    }
-
-    // Birth & childhood
-    preview.push(`<div class="preview-section"><h3>Birth &amp; Early Childhood</h3>`);
-    if (birthType) preview.push(`<div class="preview-item"><strong>Birth details:</strong> ${escapeHtml(birthType)}</div>`);
-    if (earlyChildhoodHealth) preview.push(`<div class="preview-item"><strong>Childhood health:</strong> ${escapeHtml(earlyChildhoodHealth)}</div>`);
-    if (childhoodVaccinesSummary) preview.push(`<div class="preview-item"><strong>Childhood vaccines summary:</strong> ${escapeHtml(childhoodVaccinesSummary)}</div>`);
-    if (!birthType && !earlyChildhoodHealth && !childhoodVaccinesSummary) {
-      preview.push(`<div class="preview-item small">No early-life details provided.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Vaccination
-    preview.push(`<div class="preview-section"><h3>Vaccination History</h3>`);
-    if (vaccineList.length) {
-      preview.push(`<div class="preview-item tag-list"><strong>Major vaccines:</strong> ${vaccineList.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join(" ")}</div>`);
-    }
-    if (vaccineDosesDetail) preview.push(`<div class="preview-item"><strong>Doses &amp; timing:</strong> ${escapeHtml(vaccineDosesDetail)}</div>`);
-    if (postVaccineEvents) preview.push(`<div class="preview-item"><strong>Events after vaccination (self-reported):</strong> ${escapeHtml(postVaccineEvents)}</div>`);
-    if (!vaccineList.length && !vaccineDosesDetail && !postVaccineEvents) {
-      preview.push(`<div class="preview-item small">No vaccination information provided.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Surgeries
-    preview.push(`<div class="preview-section"><h3>Surgeries &amp; Major Procedures</h3>`);
-    if (surgeryList.length) {
-      preview.push(`<div class="preview-item tag-list"><strong>Surgeries:</strong> ${surgeryList.map(s => `<span class="tag">${escapeHtml(s)}</span>`).join(" ")}</div>`);
-    }
-    if (surgeriesDetail) preview.push(`<div class="preview-item"><strong>Details:</strong> ${escapeHtml(surgeriesDetail)}</div>`);
-    if (!surgeryList.length && !surgeriesDetail) {
-      preview.push(`<div class="preview-item small">No surgeries reported.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Conditions
-    preview.push(`<div class="preview-section"><h3>Conditions &amp; Patterns</h3>`);
-    if (conditionList.length) {
-      preview.push(`<div class="preview-item tag-list"><strong>Conditions:</strong> ${conditionList.map(c => `<span class="tag">${escapeHtml(c)}</span>`).join(" ")}</div>`);
-    }
-    if (conditionsDetail) preview.push(`<div class="preview-item"><strong>Timeline &amp; pattern (self-described):</strong> ${escapeHtml(conditionsDetail)}</div>`);
-    if (worstPain) preview.push(`<div class="preview-item"><strong>Most intense pain ever remembered:</strong> ${escapeHtml(worstPain)}</div>`);
-    if (!conditionList.length && !conditionsDetail && !worstPain) {
-      preview.push(`<div class="preview-item small">No condition data provided.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Meds
-    preview.push(`<div class="preview-section"><h3>Medications &amp; Substances</h3>`);
-    if (prescribedMeds) preview.push(`<div class="preview-item"><strong>Prescribed medications:</strong> ${escapeHtml(prescribedMeds)}</div>`);
-    if (otcList.length) {
-      preview.push(`<div class="preview-item tag-list"><strong>OTC patterns:</strong> ${otcList.map(o => `<span class="tag">${escapeHtml(o)}</span>`).join(" ")}</div>`);
-    }
-    if (antibiotics) preview.push(`<div class="preview-item"><strong>Antibiotic history:</strong> ${escapeHtml(antibiotics)}</div>`);
-    if (substances) preview.push(`<div class="preview-item"><strong>Substances:</strong> ${escapeHtml(substances)}</div>`);
-    if (!prescribedMeds && !otcList.length && !antibiotics && !substances) {
-      preview.push(`<div class="preview-item small">No medication/substance information provided.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Lifestyle & EMF
-    preview.push(`<div class="preview-section"><h3>Diet, Lifestyle &amp; EMF</h3>`);
-    if (dietPattern) preview.push(`<div class="preview-item"><strong>Diet:</strong> ${escapeHtml(dietPattern)}</div>`);
-    if (movementSleep) preview.push(`<div class="preview-item"><strong>Movement / sleep / stress:</strong> ${escapeHtml(movementSleep)}</div>`);
-    const emfBits = [];
-    if (yearsNearTowers) emfBits.push(`Years near towers/lines: ${escapeHtml(yearsNearTowers)}`);
-    if (yearsWifiBedroom) emfBits.push(`Years with Wi-Fi by bed/wall: ${escapeHtml(yearsWifiBedroom)}`);
-    if (hoursPhoneOnBody) emfBits.push(`Hours/day phone on body: ${escapeHtml(hoursPhoneOnBody)}`);
-    if (otherEmf) emfBits.push(`Other EMF notes: ${escapeHtml(otherEmf)}`);
-    if (emfBits.length) {
-      preview.push(`<div class="preview-item"><strong>EMF exposure details (self-estimate):</strong> ${emfBits.join(" · ")}</div>`);
-    }
-    if (emfScoreText) {
-      preview.push(`<div class="preview-item small">${escapeHtml(emfScoreText)}</div>`);
-    }
-    if (!dietPattern && !movementSleep && !emfBits.length && !emfScoreText) {
-      preview.push(`<div class="preview-item small">No lifestyle/EMF information provided.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Doctors & data
-    preview.push(`<div class="preview-section"><h3>Doctor Interaction &amp; Records</h3>`);
-    if (doctorVisitFrequency) preview.push(`<div class="preview-item"><strong>Visit pattern:</strong> ${escapeHtml(doctorVisitFrequency)}</div>`);
-    if (bloodworkSummary) preview.push(`<div class="preview-item"><strong>Bloodwork / imaging summary:</strong> ${escapeHtml(bloodworkSummary)}</div>`);
-    if (fileNames.length) {
-      preview.push(`<div class="preview-item"><strong>Attached documents (filenames only in this prototype):</strong></div><ul class="file-list">${fileNames.map(f => `<li>${escapeHtml(f)}</li>`).join("")}</ul>`);
-    }
-    if (!doctorVisitFrequency && !bloodworkSummary && !fileNames.length) {
-      preview.push(`<div class="preview-item small">No doctor/record information attached.</div>`);
-    }
-    preview.push(`</div>`);
-
-    // Narrative
-    preview.push(`<div class="preview-section"><h3>Core Narrative</h3>`);
-    if (keyTurningPoints) preview.push(`<div class="preview-item"><strong>Key turning points:</strong> ${escapeHtml(keyTurningPoints)}</div>`);
-    if (selfAssessment) preview.push(`<div class="preview-item"><strong>Self-assessment:</strong> ${escapeHtml(selfAssessment)}</div>`);
-    if (messageToOthers) preview.push(`<div class="preview-item"><strong>Message to similar cases:</strong> ${escapeHtml(messageToOthers)}</div>`);
-    if (!keyTurningPoints && !selfAssessment && !messageToOthers) {
-      preview.push(`<div class="preview-item small">No narrative added yet.</div>`);
-    }
-    preview.push(`</div>`);
-
-    document.getElementById('previewContent').innerHTML = preview.join("");
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
 </script>
 </body>
 </html>
+
+
