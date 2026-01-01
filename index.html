@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +34,7 @@
     }
     main {
       display: flex;
-      flex-direction: column; /* stack form + preview so preview is at the end */
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       padding: 16px;
       gap: 16px;
     }
@@ -46,15 +46,15 @@
     }
     #formColumn {
       flex: 1 1 420px;
-      max-width: 100%;
+      max-width: 680px;
       overflow-y: auto;
-      max-height: none;
+      max-height: calc(100vh - 80px);
     }
     #previewColumn {
       flex: 1 1 420px;
-      max-width: 100%;
+      max-width: 680px;
       overflow-y: auto;
-      max-height: none;
+      max-height: calc(100vh - 80px);
       display: none; /* Hidden until preview generated */
     }
     h2 {
@@ -66,7 +66,7 @@
     }
     .section {
       border: 1px solid #262635;
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 10px 12px 12px;
       margin-bottom: 12px;
       background: #161823;
@@ -79,11 +79,10 @@
       gap: 8px;
     }
     .section-header span {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #b9bbd2;
+      letter-spacing: 0.06em;
     }
     .section-body {
       margin-top: 10px;
@@ -104,7 +103,7 @@
     textarea {
       width: 100%;
       padding: 6px 8px;
-      border-radius: 10px; /* softer rounded inputs */
+      border-radius: 4px;
       border: 1px solid #333647;
       background: #0d0f16;
       color: #f5f5f5;
@@ -268,24 +267,6 @@
     .file-list li {
       margin-bottom: 2px;
     }
-
-    /* Card layout inside section 1 */
-    .subsection-label {
-      font-size: 11px;
-      color: #b6b8d1;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin: 10px 2px 4px;
-    }
-    .card-block {
-      background: #151724;
-      border-radius: 10px;
-      border: 1px solid #262635;
-      padding: 10px 12px 12px;
-      margin-bottom: 10px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-    }
-
     @media (max-width: 900px) {
       main {
         flex-direction: column;
@@ -302,7 +283,7 @@
   <h1>Citizen Health Case Prototype</h1>
   <p>
     Anonymous structured intake to map a single human life as a full case: exposures, medical history, lived experience.
-    Everything is optional. The goal is clarity and density, not perfection.
+    Everything is optional. The goal is clarity and transparency.
   </p>
 </header>
 
@@ -323,161 +304,112 @@
       <label for="caseLabel">Case label (so you recognize this later)</label>
       <input type="text" id="caseLabel" placeholder="e.g., 1992 – Female – POTS, neuropathy, fatigue – suspected COVID vax">
 
-      <!-- Card 1: Demographics -->
-      <div class="subsection-label">Demographics</div>
-      <div class="card-block">
-        <div class="field-row">
-          <div>
-            <label for="birthYear">Birth year</label>
-            <input type="number" id="birthYear" min="1900" max="2100" placeholder="e.g., 1992">
-          </div>
-          <div>
-            <label for="age">Age (approx)</label>
-            <input type="number" id="age" min="0" max="120" placeholder="">
-          </div>
-        </div>
 
-        <div class="field-row">
-          <div>
-            <label for="biologicalSex">Biological sex</label>
-            <select id="biologicalSex">
-              <option value="">Prefer not to say</option>
-              <option>Female</option>
-              <option>Male</option>
-              <option>Intersex / variation</option>
-            </select>
-          </div>
-          <div>
-            <label for="genderIdentity">Gender identity (optional)</label>
-            <input type="text" id="genderIdentity" placeholder="">
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div>
-            <label for="ethnicity">Ethnic background (optional)</label>
-            <input type="text" id="ethnicity" placeholder="e.g., European, African, Asian, mixed">
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: Physical traits -->
-      <div class="subsection-label">Physical traits</div>
-      <div class="card-block">
-        <div class="field-row">
-          <div>
-            <label for="height">Height</label>
-            <input type="text" id="height" placeholder="e.g., 5'6&quot; or 168 cm">
-          </div>
-          <div>
-            <label for="weight">Weight</label>
-            <input type="text" id="weight" placeholder="e.g., 140 lb / 64 kg">
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div>
-            <label for="bmi">BMI or build (optional)</label>
-            <input type="text" id="bmi" placeholder="e.g., 23, underweight, athletic, etc.">
-            <div class="hint small">
-              Don’t know your BMI? Use:
-              <a href="https://www.cdc.gov/bmi/adult-calculator/index.html" target="_blank">CDC BMI calculator</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div>
-            <label for="hairColor">Hair color</label>
-            <select id="hairColor">
-              <option value="">Skip</option>
-              <option>Black</option>
-              <option>Dark brown</option>
-              <option>Medium brown</option>
-              <option>Light brown</option>
-              <option>Blond</option>
-              <option>Red</option>
-              <option>Gray / white</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="hairTexture">Hair texture</label>
-            <select id="hairTexture">
-              <option value="">Skip</option>
-              <option>Straight</option>
-              <option>Wavy</option>
-              <option>Curly</option>
-              <option>Coily</option>
-              <option>Mixed</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div>
-            <label for="eyeColor">Eye color</label>
-            <select id="eyeColor">
-              <option value="">Skip</option>
-              <option>Brown</option>
-              <option>Hazel</option>
-              <option>Green</option>
-              <option>Blue</option>
-              <option>Gray</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="skinTone">Skin tone</label>
-            <select id="skinTone">
-              <option value="">Skip</option>
-              <option>Very fair</option>
-              <option>Fair</option>
-              <option>Medium</option>
-              <option>Olive</option>
-              <option>Brown</option>
-              <option>Dark</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: Skin + hair indicators -->
-      <div class="subsection-label">Skin + hair indicators</div>
-      <div class="card-block">
-        <div class="field-row">
-          <div>
-            <label for="acneHistory">Acne / facial redness</label>
-            <select id="acneHistory">
-              <option value="">Skip</option>
-              <option>Never / minimal</option>
-              <option>Mild intermittent</option>
-              <option>Moderate persistent</option>
-              <option>Severe / cystic</option>
-              <option>Rosacea / chronic redness</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4: Dental + inflammation signals -->
-      <div class="subsection-label">Dental + inflammation signals</div>
-      <div class="card-block">
-        <div class="field-row">
-          <div>
-            <label for="dentalHealth">Dental health</label>
-            <select id="dentalHealth">
-              <option value="">Skip</option>
-              <option>Good, minor issues</option>
-              <option>Frequent cavities</option>
-              <option>Root canals / major restorations</option>
-              <option>Multiple missing teeth / dentures / implants</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
+  <div class="field-row">
+    <div>
+      <label for="birthYear">Birth year</label>
+      <input type="number" id="birthYear" min="1900" max="2100" placeholder="e.g., 1992">
     </div>
+    <div>
+      <label for="age">Age (approx)</label>
+      <input type="number" id="age" min="0" max="120" placeholder="">
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div>
+      <label for="biologicalSex">Biological sex</label>
+      <select id="biologicalSex">
+        <option value="">Prefer not to say</option>
+        <option>Female</option>
+        <option>Male</option>
+        <option>Intersex / variation</option>
+      </select>
+    </div>
+
+  </div>
+
+
+  <div class="field-row">
+    <div>
+      <label for="bmi">BMI or build (optional)</label>
+      <input type="text" id="bmi" placeholder="Underweight (below 18.5), Healthy Weight (18.5–24.9), Overweight (25.0–29.9), and Obese (30.0 or higher)">
+    </div>
+  
+  </div>
+
+  <label>Physical phenotype (optional)</label>
+  <div class="field-row">
+    <div>
+      <label for="hairColor">Hair color</label>
+      <select id="hairColor">
+        <option value="">Skip</option>
+        <option>Black</option>
+        <option>Dark brown</option>
+        <option>Medium brown</option>
+        <option>Light brown</option>
+        <option>Blond</option>
+        <option>Red</option>
+        <option>Gray / white</option>
+        <option>Other</option>
+      </select>
+    </div>
+   
+  </div>
+  <div class="field-row">
+    <div>
+      <label for="eyeColor">Eye color</label>
+      <select id="eyeColor">
+        <option value="">Skip</option>
+        <option>Brown</option>
+        <option>Hazel</option>
+        <option>Green</option>
+        <option>Blue</option>
+        <option>Gray</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="skinTone">Skin tone</label>
+      <select id="skinTone">
+        <option value="">Skip</option>
+        <option>Very fair</option>
+        <option>Fair</option>
+        <option>Medium</option>
+        <option>Olive</option>
+        <option>Brown</option>
+        <option>Dark</option>
+      </select>
+    </div>
+  </div>
+
+  <label>Skin / nails / dental (optional)</label>
+  <div class="field-row">
+    <div>
+      <label for="acneHistory">Acne / facial redness</label>
+      <select id="acneHistory">
+        <option value="">Skip</option>
+        <option>Never / minimal</option>
+        <option>Mild intermittent</option>
+        <option>Moderate persistent</option>
+        <option>Severe / cystic</option>
+        <option>Rosacea / chronic redness</option>
+      </select>
+    </div>
+    <div>
+      <label for="dentalHealth">Dental health</label>
+      <select id="dentalHealth">
+        <option value="">Skip</option>
+        <option>Good, minor issues</option>
+        <option>Frequent cavities</option>
+        <option>Root canals / major restorations</option>
+        <option>Multiple missing teeth / dentures / implants</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
   </div>
 
 
@@ -519,16 +451,7 @@
             <option>Mixed</option>
           </select>
         </div>
-        <div>
-          <label for="housingMold">Mold / damp housing history</label>
-          <select id="housingMold">
-            <option value="">Skip</option>
-            <option>Never noticed</option>
-            <option>Past home suspected mold</option>
-            <option>Current home suspected mold</option>
-            <option>Both past and current</option>
-          </select>
-        </div>
+      
       </div>
     </div>
   </div>
@@ -899,7 +822,8 @@
 
   </div>
 
-      <!-- 6. HEALTH TIMELINE & TURNING POINTS -->
+
+  <!-- 6. HEALTH TIMELINE & TURNING POINTS -->
   <div class="section">
     <div class="section-header">
       <span>6. Health Trajectory & Turning Points</span>
@@ -946,12 +870,12 @@
   <label for="turningPoint">Was there a point where your health took a notable turn for the worst?</label>
   <textarea id="turningPoint" placeholder="If yes, describe when, your age, what changed (vaccine, medication, surgery, infection, trauma, pregnancy, move, etc.)."></textarea>
 
-  <label class="small">Micro health timeline (up to 5 key events)</label>
+  <label class="small">Micro health timeline (up to 3 key events)</label>
   <p class="hint small">
     Use this to log precise pivots: vaccine, infection, surgery, drug start/stop, trauma, move, pregnancy, etc.
   </p>
 
-  <!-- Micro timeline events 1-5 -->
+  <!-- Micro timeline events 1-3 -->
   <div class="field-row">
     <div>
       <label for="event1Time">Event 1 – year or age</label>
@@ -1051,74 +975,7 @@
   <label class="small" for="event3Desc">Event 3 – brief description</label>
   <input type="text" id="event3Desc" placeholder="Short description (optional)">
 
-  <div class="field-row">
-    <div>
-      <label for="event4Time">Event 4 – year or age</label>
-      <input type="text" id="event4Time" placeholder="">
-    </div>
-    <div>
-      <label for="event4Type">Event 4 – type</label>
-      <select id="event4Type">
-        <option value="">Select</option>
-        <option>Vaccine</option>
-        <option>Infection</option>
-        <option>Surgery</option>
-        <option>Drug start</option>
-        <option>Drug stop</option>
-        <option>Trauma</option>
-        <option>Move</option>
-        <option>Pregnancy</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <div>
-      <label for="event4Change">Event 4 – immediate change</label>
-      <select id="event4Change">
-        <option value="">Select</option>
-        <option>Better</option>
-        <option>Worse</option>
-        <option>Unclear</option>
-      </select>
-    </div>
-  </div>
-  <label class="small" for="event4Desc">Event 4 – brief description</label>
-  <input type="text" id="event4Desc" placeholder="Short description (optional)">
-
-  <div class="field-row">
-    <div>
-      <label for="event5Time">Event 5 – year or age</label>
-      <input type="text" id="event5Time" placeholder="">
-    </div>
-    <div>
-      <label for="event5Type">Event 5 – type</label>
-      <select id="event5Type">
-        <option value="">Select</option>
-        <option>Vaccine</option>
-        <option>Infection</option>
-        <option>Surgery</option>
-        <option>Drug start</option>
-        <option>Drug stop</option>
-        <option>Trauma</option>
-        <option>Move</option>
-        <option>Pregnancy</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <div>
-      <label for="event5Change">Event 5 – immediate change</label>
-      <select id="event5Change">
-        <option value="">Select</option>
-        <option>Better</option>
-        <option>Worse</option>
-        <option>Unclear</option>
-      </select>
-    </div>
-  </div>
-  <label class="small" for="event5Desc">Event 5 – brief description</label>
-  <input type="text" id="event5Desc" placeholder="Short description (optional)">
-</div>
-
-
+ 
   </div>
 
 
@@ -1297,8 +1154,7 @@
     <label class="pill"><input type="checkbox" class="symptomChk" value="Pancreatitis"> Pancreatitis</label>
   </div>
 
-  <label for="worstPain" class="small">Memory of most intense pain ever felt (optional)</label>
-  <textarea id="worstPain" placeholder="What happened, when, and how would you describe it?"></textarea>
+
 </div>
 
 
@@ -1311,9 +1167,83 @@
       <span>8. Prescription Medications</span>
     </div>
     <div class="section-body">
-      <p class="small">List key prescriptions, with approx years of use.</p>
-      <label for="prescribedMeds">Prescriptions (past & current)</label>
-      <textarea id="prescribedMeds" placeholder="e.g., SSRIs (Lexapro 3 years), stimulants (Adderall 5 years), Ozempic 1 year, etc."></textarea>
+      <p class="small">List key prescriptions as separate entries. For each, add dose and duration of use.</p>
+
+      <div class="field-row">
+        <div>
+          <label for="rx1Name">Medication 1 – name</label>
+          <input type="text" id="rx1Name" placeholder="e.g., Lexapro">
+        </div>
+        <div>
+          <label for="rx1Dose">Medication 1 – typical dose</label>
+          <input type="text" id="rx1Dose" placeholder="e.g., 10 mg daily">
+        </div>
+        <div>
+          <label for="rx1Duration">Medication 1 – duration of use</label>
+          <input type="text" id="rx1Duration" placeholder="e.g., 3 years">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="rx2Name">Medication 2 – name</label>
+          <input type="text" id="rx2Name" placeholder="">
+        </div>
+        <div>
+          <label for="rx2Dose">Medication 2 – typical dose</label>
+          <input type="text" id="rx2Dose" placeholder="">
+        </div>
+        <div>
+          <label for="rx2Duration">Medication 2 – duration of use</label>
+          <input type="text" id="rx2Duration" placeholder="">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="rx3Name">Medication 3 – name</label>
+          <input type="text" id="rx3Name" placeholder="">
+        </div>
+        <div>
+          <label for="rx3Dose">Medication 3 – typical dose</label>
+          <input type="text" id="rx3Dose" placeholder="">
+        </div>
+        <div>
+          <label for="rx3Duration">Medication 3 – duration of use</label>
+          <input type="text" id="rx3Duration" placeholder="">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="rx4Name">Medication 4 – name</label>
+          <input type="text" id="rx4Name" placeholder="">
+        </div>
+        <div>
+          <label for="rx4Dose">Medication 4 – typical dose</label>
+          <input type="text" id="rx4Dose" placeholder="">
+        </div>
+        <div>
+          <label for="rx4Duration">Medication 4 – duration of use</label>
+          <input type="text" id="rx4Duration" placeholder="">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label for="rx5Name">Medication 5 – name</label>
+          <input type="text" id="rx5Name" placeholder="">
+        </div>
+        <div>
+          <label for="rx5Dose">Medication 5 – typical dose</label>
+          <input type="text" id="rx5Dose" placeholder="">
+        </div>
+        <div>
+          <label for="rx5Duration">Medication 5 – duration of use</label>
+          <input type="text" id="rx5Duration" placeholder="">
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1881,389 +1811,157 @@
 
   </div>
 
-
-  <!-- Buttons -->
+  <!-- Button row (preview + clear) -->
   <div class="button-row">
-    <button type="button" class="primary" onclick="renderPreview()">Preview case</button>
-    <button type="reset" class="secondary" onclick="clearPreview()">Clear form & preview</button>
+    <button type="button" class="primary" id="previewButton">Preview case</button>
+    <button type="reset" class="secondary">Clear form</button>
   </div>
-  <p class="hint" style="margin-top:8px;">
-    This is a prototype. Nothing is saved or sent anywhere. Preview exists only in your browser.
-  </p>
-</form>
 
-
+    </form>
   </section>
 
-
+  <!-- Right-hand preview column -->
   <section id="previewColumn" class="column">
     <h2>Case Preview</h2>
-    <div id="previewContent">
-      <p class="empty-state">
-        Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others.
-      </p>
+    <div class="preview-meta">
+      Local preview only. Data is not sent anywhere in this prototype.
     </div>
+    <div id="previewContent" class="small"></div>
   </section>
+
 </main>
 
-
 <script>
-  function getCheckedValues(selector) {
-    const nodes = document.querySelectorAll(selector);
-    const values = [];
-    nodes.forEach(n => {
-      if (n.checked) values.push(n.value);
-    });
-    return values;
+  function calculateEmfScore() {
+    var yearsNearTowers = parseFloat(document.getElementById('yearsNearTowers').value) || 0;
+    var yearsWifiBedroom = parseFloat(document.getElementById('yearsWifiBedroom').value) || 0;
+    var hoursPhoneOnBody = parseFloat(document.getElementById('hoursPhoneOnBody').value) || 0;
+
+    var score = yearsNearTowers * 2 + yearsWifiBedroom * 1.5 + hoursPhoneOnBody * 1.5;
+    if (score > 100) score = 100;
+
+    var text = 'Estimated EMF score (0–100, rough internal metric): ' + score.toFixed(1);
+    document.getElementById('emfScoreDisplay').textContent = text;
   }
 
-
-function calculateEmfScore() {
-const yearsNearTowers = parseFloat(document.getElementById('yearsNearTowers').value) || 0;
-const yearsWifiBedroom = parseFloat(document.getElementById('yearsWifiBedroom').value) || 0;
-const hoursPhoneOnBody = parseFloat(document.getElementById('hoursPhoneOnBody').value) || 0;
-const score = (yearsNearTowers * 3) + (yearsWifiBedroom * 2) + (hoursPhoneOnBody * 1);
-
-let label;
-if (score === 0) {
-  label = "EMF score: 0 (minimal reported exposures)";
-} else if (score < 30) {
-  label = "EMF score: " + score.toFixed(1) + " (low–moderate lifetime exposure)";
-} else if (score < 80) {
-  label = "EMF score: " + score.toFixed(1) + " (moderate–high lifetime exposure)";
-} else {
-  label = "EMF score: " + score.toFixed(1) + " (high lifetime exposure)";
-}
-document.getElementById('emfScoreDisplay').textContent = label;
-
-
-}
-
-function clearPreview() {
-document.getElementById('previewContent').innerHTML =
-' <p class="empty-state"> Fill out the form and click “Preview case” to see how an anonymous citizen case could look when shared with others. </p> ';
-const previewCol = document.getElementById('previewColumn');
-if (previewCol) previewCol.style.display = 'none';
-}
-
-// simple slider label sync
-function syncSlider(id, labelId) {
-const el = document.getElementById(id);
-const lab = document.getElementById(labelId);
-if (!el || !lab) return;
-el.addEventListener('input', () => {
-lab.textContent = el.value;
-});
-}
-
-['dietQuality','sleepQuality','activityLevel','docIdentify','docListen','docReduce','docImprove','docTeach','docOverall',
-'emotionalRegulation','emotionalTrauma','physicalTrauma','stressLevel'].forEach(id => {
-syncSlider(id, id + 'Label');
-});
-
-// collapsible longest section
-document.querySelectorAll('.toggle-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-const targetId = btn.getAttribute('data-target');
-const body = document.getElementById(targetId);
-if (!body) return;
-const nowCollapsed = body.classList.toggle('collapsed');
-btn.textContent = nowCollapsed ? 'Expand' : 'Collapse';
-});
-});
-
-function renderPreview() {
-const get = id => {
-const el = document.getElementById(id);
-return el ? (el.value || '').trim() : '';
-};
-
-const caseLabel = get('caseLabel') || 'Untitled case';
-const birthYear = get('birthYear');
-const age = get('age');
-const biologicalSex = get('biologicalSex');
-const genderIdentity = get('genderIdentity');
-const country = get('country');
-const usRegion = get('usRegion');
-const urbanRural = get('urbanRural');
-const childhoodHealthRating = get('childhoodHealthRating');
-const adolescentHealthRating = get('adolescentHealthRating');
-const recentHealthChange = get('recentHealthChange');
-const symptomFrequency = get('symptomFrequency');
-
-const dietQuality = get('dietQuality');
-const sleepHours = get('sleepHours');
-const sleepQuality = get('sleepQuality');
-const activeDays = get('activeDays');
-const activityLevel = get('activityLevel');
-const stressLevel = get('stressLevel');
-const emotionalRegulation = get('emotionalRegulation');
-const emotionalTrauma = get('emotionalTrauma');
-const physicalTrauma = get('physicalTrauma');
-
-const funcGroceries = get('funcGroceries');
-const funcWalk10 = get('funcWalk10');
-const funcSelfCare = get('funcSelfCare');
-
-const symptomList = getCheckedValues('.symptomChk');
-const diagnosisList = getCheckedValues('.diagnosisChk');
-const surgeryList = getCheckedValues('.surgeryChk');
-const otcList = getCheckedValues('.otcChk');
-const deviceList = getCheckedValues('.deviceChk');
-const testList = getCheckedValues('.testChk');
-const otherVaxList = getCheckedValues('.otherVaxChk');
-const envProdList = getCheckedValues('.envProdChk');
-
-const emfScoreText = document.getElementById('emfScoreDisplay').textContent;
-
-const files = document.getElementById('uploadedDocs').files;
-const fileNames = [];
-for (let i = 0; i < files.length; i++) fileNames.push(files[i].name);
-
-// micro timeline events
-const events = [];
-for (let i = 1; i <= 5; i++) {
-  const t = get('event' + i + 'Time');
-  const type = get('event' + i + 'Type');
-  const change = get('event' + i + 'Change');
-  const desc = get('event' + i + 'Desc');
-  if (t || type || change || desc) {
-    events.push({
-      time: t,
-      type: type,
-      change: change,
-      desc: desc
+  function updateSliderLabel(sliderId, labelId) {
+    var slider = document.getElementById(sliderId);
+    var label = document.getElementById(labelId);
+    if (!slider || !label) return;
+    label.textContent = slider.value;
+    slider.addEventListener('input', function () {
+      label.textContent = slider.value;
     });
   }
-}
 
-const preview = [];
+  function setupSliders() {
+    updateSliderLabel('dietQuality', 'dietQualityLabel');
+    updateSliderLabel('sleepQuality', 'sleepQualityLabel');
+    updateSliderLabel('activityLevel', 'activityLevelLabel');
+    updateSliderLabel('docIdentify', 'docIdentifyLabel');
+    updateSliderLabel('docListen', 'docListenLabel');
+    updateSliderLabel('docReduce', 'docReduceLabel');
+    updateSliderLabel('docImprove', 'docImproveLabel');
+    updateSliderLabel('docTeach', 'docTeachLabel');
+    updateSliderLabel('docOverall', 'docOverallLabel');
+    updateSliderLabel('stressLevel', 'stressLevelLabel');
+    updateSliderLabel('emotionalRegulation', 'emotionalRegulationLabel');
+    updateSliderLabel('emotionalTrauma', 'emotionalTraumaLabel');
+    updateSliderLabel('physicalTrauma', 'physicalTraumaLabel');
+  }
 
-// Basic meta
-preview.push('<div class="preview-meta"><strong>' + escapeHtml(caseLabel) + '</strong></div>');
-const metaBits = [];
-if (birthYear) metaBits.push('Birth year: ' + escapeHtml(birthYear));
-if (age) metaBits.push('Age: ' + escapeHtml(age));
-if (biologicalSex) metaBits.push('Sex: ' + escapeHtml(biologicalSex));
-if (genderIdentity) metaBits.push('Gender identity: ' + escapeHtml(genderIdentity));
-if (country) metaBits.push('Country: ' + escapeHtml(country));
-if (usRegion) metaBits.push('US region: ' + escapeHtml(usRegion));
-if (urbanRural) metaBits.push('Env: ' + escapeHtml(urbanRural));
-if (metaBits.length) {
-  preview.push('<div class="preview-item">' + metaBits.join(' · ') + '</div>');
-}
+  function setupCollapse() {
+    var buttons = document.querySelectorAll('.toggle-btn');
+    buttons.forEach(function (btn) {
+      var targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+      var target = document.getElementById(targetId);
+      if (!target) return;
 
-// Health trajectory
-preview.push('<div class="preview-section"><h3>Health Trajectory</h3>');
-if (childhoodHealthRating) preview.push('<div class="preview-item"><strong>Childhood health:</strong> ' + escapeHtml(childhoodHealthRating) + '</div>');
-if (adolescentHealthRating) preview.push('<div class="preview-item"><strong>Adolescence health:</strong> ' + escapeHtml(adolescentHealthRating) + '</div>');
-if (recentHealthChange) preview.push('<div class="preview-item"><strong>Past 5 years:</strong> ' + escapeHtml(recentHealthChange) + '</div>');
-if (symptomFrequency) preview.push('<div class="preview-item"><strong>Symptom frequency:</strong> ' + escapeHtml(symptomFrequency) + '</div>');
-if (events.length) {
-  preview.push('<div class="preview-item"><strong>Micro timeline events:</strong></div>');
-  events.forEach((ev, idx) => {
-    const parts = [];
-    if (ev.time) parts.push('Time: ' + escapeHtml(ev.time));
-    if (ev.type) parts.push('Type: ' + escapeHtml(ev.type));
-    if (ev.change) parts.push('Change: ' + escapeHtml(ev.change));
-    if (ev.desc) parts.push('Note: ' + escapeHtml(ev.desc));
-    if (parts.length) {
-      preview.push('<div class="preview-item small">[' + (idx + 1) + '] ' + parts.join(' · ') + '</div>');
-    }
+      btn.addEventListener('click', function () {
+        var collapsed = target.classList.toggle('collapsed');
+        btn.textContent = collapsed ? 'Expand' : 'Collapse';
+      });
+    });
+  }
+
+  function buildPreviewData() {
+    var data = {};
+
+    var elemList = document.querySelectorAll('#caseForm input, #caseForm select, #caseForm textarea');
+
+    var checkboxGroups = {
+      'diagnosisChk': 'diagnoses',
+      'symptomChk': 'symptoms',
+      'otherVaxChk': 'otherVaccinesLifetime',
+      'otcChk': 'otcUsage',
+      'envProdChk': 'environmentProducts',
+      'testChk': 'testingDone',
+      'surgeryChk': 'surgeriesTypes',
+      'deviceChk': 'devicesUsed'
+    };
+
+    elemList.forEach(function (el) {
+      if (el.type === 'file') {
+        var files = Array.from(el.files || []).map(function (f) { return f.name; });
+        data['uploadedDocs'] = files;
+        return;
+      }
+
+      if (el.type === 'checkbox') {
+        var groupKey = null;
+        Object.keys(checkboxGroups).forEach(function (cls) {
+          if (el.classList.contains(cls)) {
+            groupKey = checkboxGroups[cls];
+          }
+        });
+        if (groupKey) {
+          if (!data[groupKey]) data[groupKey] = [];
+          if (el.checked) data[groupKey].push(el.value);
+        }
+        return;
+      }
+
+      if (el.type === 'radio') {
+        if (!el.name) return;
+        if (!el.checked) return;
+        data[el.name] = el.value;
+        return;
+      }
+
+      var key = el.id || el.name;
+      if (!key) return;
+      data[key] = el.value;
+    });
+
+    return data;
+  }
+
+  function setupPreview() {
+    var btn = document.getElementById('previewButton');
+    var previewCol = document.getElementById('previewColumn');
+    var previewContent = document.getElementById('previewContent');
+    if (!btn || !previewCol || !previewContent) return;
+
+    btn.addEventListener('click', function () {
+      var data = buildPreviewData();
+      var pretty = JSON.stringify(data, null, 2);
+      previewContent.textContent = pretty;
+      previewCol.style.display = 'block';
+    });
+  }
+
+  document.getElementById('caseForm').addEventListener('submit', function (e) {
+    e.preventDefault();
   });
-}
-preview.push('</div>');
 
-// Vaccines summary (short)
-const covidDoseCount = get('covidDoseCount');
-const fluTotal = get('fluTotal');
-preview.push('<div class="preview-section"><h3>Vaccination Summary</h3>');
-if (covidDoseCount || fluTotal || otherVaxList.length) {
-  if (covidDoseCount) preview.push('<div class="preview-item"><strong>COVID mRNA doses:</strong> ' + escapeHtml(covidDoseCount) + '</div>');
-  if (fluTotal) preview.push('<div class="preview-item"><strong>Flu doses (est):</strong> ' + escapeHtml(fluTotal) + '</div>');
-  if (otherVaxList.length) {
-    preview.push('<div class="preview-item tag-list"><strong>Other vaccines:</strong> ' +
-      otherVaxList.map(v => '<span class="tag">' + escapeHtml(v) + '</span>').join(' ') + '</div>');
-  }
-} else {
-  preview.push('<div class="preview-item small">No vaccine details summarized here. (Full schedule stored in case.)</div>');
-}
-preview.push('</div>');
-
-// Diagnoses & symptoms
-preview.push('<div class="preview-section"><h3>Diagnoses & Symptoms (Last 5 Years)</h3>');
-if (diagnosisList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>Diagnoses:</strong> ' +
-    diagnosisList.map(d => '<span class="tag">' + escapeHtml(d) + '</span>').join(' ') + '</div>');
-}
-if (symptomList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>Symptoms:</strong> ' +
-    symptomList.map(s => '<span class="tag">' + escapeHtml(s) + '</span>').join(' ') + '</div>');
-}
-if (!diagnosisList.length && !symptomList.length) {
-  preview.push('<div class="preview-item small">No diagnoses or symptoms selected.</div>');
-}
-preview.push('</div>');
-
-// Meds & OTC
-const prescribedMeds = get('prescribedMeds');
-const supplements = get('supplements');
-const antibiotics = get('antibiotics');
-preview.push('<div class="preview-section"><h3>Medications, OTC & Supplements</h3>');
-if (prescribedMeds) preview.push('<div class="preview-item"><strong>Prescriptions:</strong> ' + escapeHtml(prescribedMeds) + '</div>');
-if (otcList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>OTC patterns:</strong> ' +
-    otcList.map(o => '<span class="tag">' + escapeHtml(o) + '</span>').join(' ') + '</div>');
-}
-if (supplements) preview.push('<div class="preview-item"><strong>Supplements:</strong> ' + escapeHtml(supplements) + '</div>');
-if (antibiotics) preview.push('<div class="preview-item"><strong>Antibiotic history:</strong> ' + escapeHtml(antibiotics) + '</div>');
-if (!prescribedMeds && !otcList.length && !supplements && !antibiotics) {
-  preview.push('<div class="preview-item small">No medication/OTC/supplement data provided.</div>');
-}
-preview.push('</div>');
-
-// Lifestyle & environment
-const dietPattern = get('dietPattern');
-const processedMeals = get('processedMeals');
-const fastFoodMeals = get('fastFoodMeals');
-const yearsNearTowers = get('yearsNearTowers');
-const yearsWifiBedroom = get('yearsWifiBedroom');
-const hoursPhoneOnBody = get('hoursPhoneOnBody');
-const chemicalExposure = get('chemicalExposure');
-const airPollution = get('airPollution');
-const envBits = [];
-if (yearsNearTowers) envBits.push('Years near towers/lines: ' + escapeHtml(yearsNearTowers));
-if (yearsWifiBedroom) envBits.push('Years with Wi-Fi by bed/wall: ' + escapeHtml(yearsWifiBedroom));
-if (hoursPhoneOnBody) envBits.push('Hours/day phone on body: ' + escapeHtml(hoursPhoneOnBody));
-
-preview.push('<div class="preview-section"><h3>Lifestyle, Function & Environment</h3>');
-if (dietPattern) preview.push('<div class="preview-item"><strong>Diet pattern:</strong> ' + escapeHtml(dietPattern) + '</div>');
-const lifestyleBits = [];
-if (dietQuality) lifestyleBits.push('Diet quality (1–10): ' + escapeHtml(dietQuality));
-if (processedMeals) lifestyleBits.push('Processed meals/week: ' + escapeHtml(processedMeals));
-if (fastFoodMeals) lifestyleBits.push('Fast food/week: ' + escapeHtml(fastFoodMeals));
-if (sleepHours) lifestyleBits.push('Sleep hours/night: ' + escapeHtml(sleepHours));
-if (sleepQuality) lifestyleBits.push('Sleep quality (1–10): ' + escapeHtml(sleepQuality));
-if (activeDays) lifestyleBits.push('Active days/week: ' + escapeHtml(activeDays));
-if (activityLevel) lifestyleBits.push('Activity level (1–10): ' + escapeHtml(activityLevel));
-if (stressLevel) lifestyleBits.push('Stress level (1–10): ' + escapeHtml(stressLevel));
-if (lifestyleBits.length) {
-  preview.push('<div class="preview-item">' + lifestyleBits.join(' · ') + '</div>');
-}
-
-const funcBits = [];
-if (funcGroceries) funcBits.push('Groceries upstairs without stopping: ' + escapeHtml(funcGroceries));
-if (funcWalk10) funcBits.push('Walk 10 minutes without stopping: ' + escapeHtml(funcWalk10));
-if (funcSelfCare) funcBits.push('Household chores & self-care unaided: ' + escapeHtml(funcSelfCare));
-if (funcBits.length) {
-  preview.push('<div class="preview-item"><strong>Functional status:</strong> ' + funcBits.join(' · ') + '</div>');
-}
-
-if (envBits.length) {
-  preview.push('<div class="preview-item"><strong>EMF exposure:</strong> ' + envBits.join(' · ') + '</div>');
-}
-if (emfScoreText) preview.push('<div class="preview-item small">' + escapeHtml(emfScoreText) + '</div>');
-if (chemicalExposure) preview.push('<div class="preview-item"><strong>Chemical exposure:</strong> ' + escapeHtml(chemicalExposure) + '</div>');
-if (airPollution) preview.push('<div class="preview-item"><strong>Air quality:</strong> ' + escapeHtml(airPollution) + '</div>');
-if (envProdList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>Scented products:</strong> ' +
-    envProdList.map(e => '<span class="tag">' + escapeHtml(e) + '</span>').join(' ') + '</div>');
-}
-preview.push('</div>');
-
-// Emotional / trauma overview
-if (emotionalRegulation || emotionalTrauma || physicalTrauma || stressLevel) {
-  preview.push('<div class="preview-section"><h3>Emotional & Trauma Profile</h3>');
-  const emoBits = [];
-  if (stressLevel) emoBits.push('Stress level (1–10): ' + escapeHtml(stressLevel));
-  if (emotionalRegulation) emoBits.push('Emotional regulation (1–10): ' + escapeHtml(emotionalRegulation));
-  if (emotionalTrauma) emoBits.push('Emotional trauma (1–10): ' + escapeHtml(emotionalTrauma));
-  if (physicalTrauma) emoBits.push('Physical trauma (1–10): ' + escapeHtml(physicalTrauma));
-  preview.push('<div class="preview-item">' + emoBits.join(' · ') + '</div>');
-  preview.push('</div>');
-}
-
-// Tests / surgeries
-const surgeriesDetail = get('surgeriesDetail');
-const hospitalizations = get('hospitalizations');
-preview.push('<div class="preview-section"><h3>Tests, Surgeries, Hospitalizations</h3>');
-if (testList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>Tests/imaging:</strong> ' +
-    testList.map(t => '<span class="tag">' + escapeHtml(t) + '</span>').join(' ') + '</div>');
-}
-if (surgeryList.length) {
-  preview.push('<div class="preview-item tag-list"><strong>Surgeries:</strong> ' +
-    surgeryList.map(s => '<span class="tag">' + escapeHtml(s) + '</span>').join(' ') + '</div>');
-}
-if (surgeriesDetail) preview.push('<div class="preview-item"><strong>Surgeries timeline:</strong> ' + escapeHtml(surgeriesDetail) + '</div>');
-if (hospitalizations) preview.push('<div class="preview-item"><strong>Hospitalizations:</strong> ' + escapeHtml(hospitalizations) + '</div>');
-if (!testList.length && !surgeryList.length && !surgeriesDetail && !hospitalizations) {
-  preview.push('<div class="preview-item small">No test/surgery/hospitalization details.</div>');
-}
-preview.push('</div>');
-
-// Devices
-preview.push('<div class="preview-section"><h3>Devices & Aids</h3>');
-if (deviceList.length) {
-  preview.push('<div class="preview-item tag-list">' +
-    deviceList.map(d => '<span class="tag">' + escapeHtml(d) + '</span>').join(' ') + '</div>');
-} else {
-  preview.push('<div class="preview-item small">No devices reported.</div>');
-}
-
-// Narrative
-const keyTurningPoints = get('keyTurningPoints');
-const selfAssessment = get('selfAssessment');
-const messageToOthers = get('messageToOthers');
-preview.push('<div class="preview-section"><h3>Narrative</h3>');
-if (keyTurningPoints) preview.push('<div class="preview-item"><strong>Turning points:</strong> ' + escapeHtml(keyTurningPoints) + '</div>');
-if (selfAssessment) preview.push('<div class="preview-item"><strong>Self-assessment:</strong> ' + escapeHtml(selfAssessment) + '</div>');
-if (messageToOthers) preview.push('<div class="preview-item"><strong>Message to others:</strong> ' + escapeHtml(messageToOthers) + '</div>');
-if (!keyTurningPoints && !selfAssessment && !messageToOthers) {
-  preview.push('<div class="preview-item small">No narrative added.</div>');
-}
-preview.push('</div>');
-
-// Documents
-preview.push('<div class="preview-section"><h3>Documents</h3>');
-if (fileNames.length) {
-  preview.push('<ul class="file-list">' + fileNames.map(f => '<li>' + escapeHtml(f) + '</li>').join('') + '</ul>');
-} else {
-  preview.push('<div class="preview-item small">No documents attached.</div>');
-}
-
-// Consent
-const consentRedaction = get('consentRedaction');
-const consentAnalysis = get('consentAnalysis');
-if (consentRedaction || consentAnalysis) {
-  preview.push('<div class="preview-section"><h3>Consent</h3>');
-  if (consentRedaction) {
-    preview.push('<div class="preview-item"><strong>Identifiers removed:</strong> ' + escapeHtml(consentRedaction) + '</div>');
-  }
-  if (consentAnalysis) {
-    preview.push('<div class="preview-item"><strong>Consent to pattern analysis:</strong> ' + escapeHtml(consentAnalysis) + '</div>');
-  }
-  preview.push('</div>');
-}
-
-document.getElementById('previewContent').innerHTML = preview.join('');
-const previewCol = document.getElementById('previewColumn');
-if (previewCol) previewCol.style.display = 'block';
-
-
-}
-
-function escapeHtml(str) {
-return String(str)
-.replace(/&/g, "&")
-.replace(/</g, "<")
-.replace(/>/g, ">")
-.replace(/"/g, """)
-.replace(/'/g, "'");
-}
-
+  document.addEventListener('DOMContentLoaded', function () {
+    setupSliders();
+    setupCollapse();
+    setupPreview();
+  });
 </script>
+
 </body>
 </html>
-
-
+```
