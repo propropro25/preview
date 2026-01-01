@@ -333,8 +333,19 @@
 
   <div class="field-row">
     <div>
-      <label for="birthYear">Birth year</label>
-      <input type="number" id="birthYear" min="1900" max="2100" placeholder="e.g., 1992">
+    <label for="Age">Age Group</label>
+      <select id="Age">
+        <option value="">Prefer not to say</option>
+        <option>Newborn - 1 year</option>
+          <option>2 - 10</option>
+        <option>11 - 19</option>
+           <option>20 - 29</option>
+            <option>30 - 39</option>
+            <option>40 - 49</option>
+            <option>50 - 59</option>
+            <option>60 - 69</option>
+            <option>70+ </option>
+      </select>
     </div>
       <div>
       <label for="biologicalSex">Biological sex</label>
@@ -342,7 +353,6 @@
         <option value="">Prefer not to say</option>
         <option>Female</option>
         <option>Male</option>
-        <option>Intersex / variation</option>
       </select>
     </div>
   </div>
@@ -352,13 +362,19 @@
 
   <div class="field-row">
     <div>
-      <label for="bmi">BMI or build (optional)</label>
+      <label for="bmi">BMI (optional)</label>
       <input type="text" id="bmi" placeholder="Underweight (below 18.5), Healthy Weight (18.5–24.9), Overweight (25.0–29.9), and Obese (30.0 or higher)">
+      
     </div>
-  
+  <div class="helper">
+        Don’t know it? Calcuate it here:
+        <a href="https://www.cdc.gov/bmi/adult-calculator/index.html" target="_blank" style="color:#9fb0ff;">
+          CDC BMI calculator
+        </a>
+      </div>
   </div>
 
-  <label>Physical phenotype (optional)</label>
+  <label>Physical Composition</label>
   <div class="field-row">
     <div>
       <label for="hairColor">Hair color</label>
@@ -403,10 +419,17 @@
     </div>
   </div>
 
-  <label>Skin / nails / dental (optional)</label>
+  
+ <!-- SKIN / HAIR INDICATORS -->
+<div class="section-label">Skin + hair indicators</div>
+
+<div class="card">
+  <h2>Surface signals</h2>
+  <small>Patterns that sometimes correlate with systemic load.</small>
+
   <div class="field-row">
     <div>
-      <label for="acneHistory">Acne / facial redness</label>
+      <label for="acneHistory">Acne / redness</label>
       <select id="acneHistory">
         <option value="">Skip</option>
         <option>Never / minimal</option>
@@ -416,6 +439,28 @@
         <option>Rosacea / chronic redness</option>
       </select>
     </div>
+
+    <div>
+      <label for="hairIssues">Hair changes</label>
+      <select id="hairIssues">
+        <option value="">Skip</option>
+        <option>No noticeable issues</option>
+        <option>Thinning</option>
+        <option>Patchy loss</option>
+        <option>Early graying</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- DENTAL + INFLAMMATION -->
+<div class="section-label">Oral signals</div>
+
+<div class="card">
+  <h2>Oral + vascular clues</h2>
+  <small>Often reflect long-term terrain stress.</small>
+
+  <div class="field-row">
     <div>
       <label for="dentalHealth">Dental health</label>
       <select id="dentalHealth">
@@ -426,14 +471,32 @@
         <option>Multiple missing teeth / dentures / implants</option>
       </select>
     </div>
+
+    <div>
+      <label for="gumIssues">Gum issues</label>
+      <select id="gumIssues">
+        <option value="">Skip</option>
+        <option>None</option>
+        <option>Sensitivity / bleeding</option>
+        <option>Receding gums</option>
+        <option>Chronic gum disease</option>
+      </select>
+    </div>
+    <div>
+      <label for="throatAppearance">Throat appearance</label>
+      <select id="throatAppearance">
+        <option value="">Normal</option>
+        <option>None</option>
+        <option>Large visible veins and blood vessels </option>
+        <option>Yellow or grey tint to roof of mouth</option>
+        <option>Occational 'cobblestone' throat</option>
+      </select>
+    </div>
   </div>
 </div>
 
 
-  </div>
-
-
-  <!-- 2. GEOGRAPHY & HOUSING -->
+  <!-- 2. REGION + ENVIROMENT -->
   <div class="section">
     <div class="section-header">
       <span>2. Region & Housing</span>
@@ -471,7 +534,24 @@
             <option>Mixed</option>
           </select>
         </div>
-      
+      <div>
+          <label for="sunExposure">Sun exposure</label>
+          <select id="sunExposure">
+            <option value="">Skip</option>
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Rare</option>
+          </select>
+        </div>
+         <div>
+          <label for="weatherEffects">Do you notice a change symptoms with weather/ pressure systems?</label>
+          <select id="sunExposure">
+            <option value="">Skip</option>
+            <option>No</option>
+            <option>Unsure</option>
+            <option>Yes</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -515,7 +595,7 @@
 
   <div class="field-row">
     <div>
-      <label for="induction">Labor induction</label>
+      <label for="induction">Labor induction?</label>
       <select id="induction">
         <option value="">Unknown / skip</option>
         <option>Yes</option>
@@ -523,7 +603,7 @@
       </select>
     </div>
     <div>
-      <label for="epidural">Epidural received</label>
+      <label for="epidural">Epidural received?</label>
       <select id="epidural">
         <option value="">Unknown / skip</option>
         <option>Yes</option>
@@ -534,7 +614,7 @@
 
   <div class="field-row">
     <div>
-      <label for="pitocin">Pitocin / oxytocin for labor</label>
+      <label for="pitocin">Pitocin administered? </label>
       <select id="pitocin">
         <option value="">Unknown / skip</option>
         <option>Yes</option>
@@ -542,7 +622,7 @@
       </select>
     </div>
     <div>
-      <label for="nicuStay">NICU stay</label>
+      <label for="nicuStay">NICU stay required?</label>
       <select id="nicuStay">
         <option value="">No / unknown</option>
         <option>Yes</option>
@@ -556,7 +636,7 @@
       <input type="number" id="nicuDays" min="0" max="365">
     </div>
     <div>
-      <label for="breastfedAtBirth">Breastfed within first hour</label>
+      <label for="breastfedAtBirth">Breastfed within first hour?</label>
       <select id="breastfedAtBirth">
         <option value="">Unknown / skip</option>
         <option>Yes</option>
@@ -579,7 +659,7 @@
 
   <div class="field-row">
     <div>
-      <label for="devConcerns">Developmental concerns</label>
+      <label for="devConcerns">Developmental concerns?</label>
       <select id="devConcerns">
         <option value="">None / unknown</option>
         <option>Motor delays</option>
@@ -589,30 +669,31 @@
         <option>Multiple</option>
       </select>
     </div>
-    <div>
-      <label for="siblingsOlder">Older siblings (count)</label>
-      <input type="number" id="siblingsOlder" min="0" max="15">
-    </div>
-    <div>
-      <label for="siblingsYounger">Younger siblings (count)</label>
-      <input type="number" id="siblingsYounger" min="0" max="15">
-    </div>
-  </div>
+
 
   <div class="field-row">
     <div>
       <label for="earlyPets">Pets in home (first 5 years)</label>
-      <input type="text" id="earlyPets" placeholder="e.g., dogs, cats, farm animals, none">
+        <select id="earlyPets">
+                 <option>No</option>
+       <option>Dog[s]</option>
+        <option>Cat[s]</option>
+        <option>Other</option>
+      </select>
     </div>
   </div>
 
   <div class="field-row">
     <div>
-      <label for="earlyHospitalizations">Hospitalizations first 5 years (count)</label>
-      <input type="number" id="earlyHospitalizations" min="0" max="50">
+      <label for="earlyHospitalizations">Hospitalizations first 5 years?</label>
+       <select id="earlyHospitalizations">
+      <option>No</option>
+        <option>Once</option>
+          <option>More than once</option>
+      </select>
     </div>
     <div>
-      <label for="infantSeizures">Infant seizures</label>
+      <label for="infantSeizures">Febrile events?</label>
       <select id="infantSeizures">
         <option value="">None / unknown</option>
         <option>Febrile seizures</option>
@@ -657,15 +738,15 @@
     <div class="vax-group-title">Hep B</div>
     <div class="field-row">
       <div>
-        <label for="hepB1Year">Dose 1 (newborn)</label>
+        <label for="hepB1Year">Dose 1 (birth)</label>
         <input type="text" id="hepB1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="hepB2Year">Dose 2 (2 months)</label>
+        <label for="hepB2Year">Dose 2 (2 mo)</label>
         <input type="text" id="hepB2Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="hepB3Year">Dose 3 (6 months)</label>
+        <label for="hepB3Year">Dose 3 (6 mo)</label>
         <input type="text" id="hepB3Year" placeholder="YYYY or ?">
       </div>
     </div>
@@ -675,11 +756,11 @@
     <div class="vax-group-title">Rotavirus</div>
     <div class="field-row">
       <div>
-        <label for="rota1Year">Dose 1 (2 months)</label>
+        <label for="rota1Year">Dose 1 (2 mo)</label>
         <input type="text" id="rota1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="rota2Year">Dose 2 (4 months)</label>
+        <label for="rota2Year">Dose 2 (4 mo)</label>
         <input type="text" id="rota2Year" placeholder="YYYY or ?">
       </div>
     </div>
@@ -689,22 +770,24 @@
     <div class="vax-group-title">DTaP</div>
     <div class="field-row">
       <div>
-        <label for="dtap1Year">Dose 1 (2 months)</label>
+        <label for="dtap1Year">Dose 1 (2 mo)</label>
         <input type="text" id="dtap1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="dtap2Year">Dose 2 (4 months)</label>
+        <label for="dtap2Year">Dose 2 (4 mo)</label>
         <input type="text" id="dtap2Year" placeholder="YYYY or ?">
       </div>
-    </div>
-    <div class="field-row">
       <div>
-        <label for="dtap3Year">Dose 3 (6 months)</label>
+        <label for="dtap3Year">Dose 3 (6 mo)</label>
         <input type="text" id="dtap3Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="dtap4Year">Dose 4 (15 months)</label>
+        <label for="dtap4Year">Dose 4 (12 mo)</label>
         <input type="text" id="dtap4Year" placeholder="YYYY or ?">
+      </div>
+      <div>
+        <label for="dtap5Year">Dose 5 (4 yo)</label>
+        <input type="text" id="dtap2Year" placeholder="YYYY or ?">
       </div>
     </div>
   </div>
@@ -713,17 +796,20 @@
     <div class="vax-group-title">Inactivated polio (IPV)</div>
     <div class="field-row">
       <div>
-        <label for="ipv1Year">Dose 1 (2 months)</label>
+        <label for="ipv1Year">Dose 1 (2 mo)</label>
         <input type="text" id="ipv1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="ipv2Year">Dose 2 (4 months)</label>
+        <label for="ipv2Year">Dose 2 (4 mo)</label>
         <input type="text" id="ipv2Year" placeholder="YYYY or ?">
       </div>
     </div>
-    <div class="field-row">
       <div>
-        <label for="ipv3Year">Dose 3</label>
+        <label for="ipv3Year">Dose 3 (12 mo)</label>
+        <input type="text" id="ipv3Year" placeholder="YYYY or ?">
+      </div>
+    <div>
+        <label for="ipv4Year">Dose 4 (4 yo)</label>
         <input type="text" id="ipv3Year" placeholder="YYYY or ?">
       </div>
     </div>
@@ -733,12 +819,21 @@
     <div class="vax-group-title">Hib</div>
     <div class="field-row">
       <div>
-        <label for="hib1Year">Dose 1 (2 months)</label>
+        <label for="hib1Year">Dose 1 (2 mo)</label>
         <input type="text" id="hib1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="hib2Year">Dose 2 (4 months)</label>
+        <label for="hib2Year">Dose 2 (4 mo)</label>
         <input type="text" id="hib2Year" placeholder="YYYY or ?">
+      </div>
+    </div>
+    <div>
+        <label for="hib3Year">Dose 3 (6 mo)</label>
+        <input type="text" id="hib3Year" placeholder="YYYY or ?">
+      </div>
+      <div>
+        <label for="hib4Year">Dose 4 (12 mo)</label>
+        <input type="text" id="hib4Year" placeholder="YYYY or ?">
       </div>
     </div>
   </div>
@@ -747,21 +842,21 @@
     <div class="vax-group-title">Pneumococcal (PCV)</div>
     <div class="field-row">
       <div>
-        <label for="pcv1Year">Dose 1 (2 months)</label>
+        <label for="pcv1Year">Dose 1 (2 mo)</label>
         <input type="text" id="pcv1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="pcv2Year">Dose 2 (4 months)</label>
+        <label for="pcv2Year">Dose 2 (4 mo)</label>
         <input type="text" id="pcv2Year" placeholder="YYYY or ?">
       </div>
     </div>
     <div class="field-row">
       <div>
-        <label for="pcv3Year">Dose 3 (6 months)</label>
+        <label for="pcv3Year">Dose 3 (6 mo)</label>
         <input type="text" id="pcv3Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="pcv4Year">Dose 4 (12 months)</label>
+        <label for="pcv4Year">Dose 4 (12 mo)</label>
         <input type="text" id="pcv4Year" placeholder="YYYY or ?">
       </div>
     </div>
@@ -771,11 +866,11 @@
     <div class="vax-group-title">MMR</div>
     <div class="field-row">
       <div>
-        <label for="mmr1Year">Dose 1 (12 months)</label>
+        <label for="mmr1Year">Dose 1 (12 mo)</label>
         <input type="text" id="mmr1Year" placeholder="YYYY or ?">
       </div>
       <div>
-        <label for="mmr2Year">Dose 2 (4 years)</label>
+        <label for="mmr2Year">Dose 2 (4 yr)</label>
         <input type="text" id="mmr2Year" placeholder="YYYY or ?">
       </div>
     </div>
@@ -785,8 +880,36 @@
     <div class="vax-group-title">Varicella</div>
     <div class="field-row">
       <div>
-        <label for="var1Year">Dose 1 (12 months)</label>
+        <label for="var1Year">Dose 1 (12 mo)</label>
         <input type="text" id="var1Year" placeholder="YYYY or ?">
+      </div>
+        <div>
+        <label for="var2Year">Dose 2 (4 yo)</label>
+        <input type="text" id="var2Year" placeholder="YYYY or ?">
+      </div>
+    </div>
+     <div class="vax-group">
+    <div class="vax-group-title">Flu</div>
+    <div class="field-row">
+      <div>
+        <label for="flu1Year">Dose 1 (6 mo)</label>
+        <input type="text" id="var1Year" placeholder="YYYY or ?">
+      </div>
+        <div>
+        <label for="flu2Year">Dose 2 (8 yo)</label>
+        <input type="text" id="var2Year" placeholder="YYYY or ?">
+      </div>
+    </div>
+        <div class="vax-group">
+    <div class="vax-group-title">Covid</div>
+    <div class="field-row">
+      <div>
+        <label for="cov1Year">Dose 1 (6 mo)</label>
+        <input type="text" id="cov1Year" placeholder="YYYY or ?">
+      </div>
+        <div>
+        <label for="cov2Year">Dose 2 (8 yo)</label>
+        <input type="text" id="cov2Year" placeholder="YYYY or ?">
       </div>
     </div>
   </div>
@@ -839,11 +962,30 @@
   </div>
 </div>
 
+    <div class="field-row">
+    <div>
+      <label for="unvaccinatedInfancy">Unvaccinated in Infancy?</label>
+      <select id="unvaccinatedInfancy">
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
+       <div>
+      <label for="vaccinateError">Any vaccine administration errors or reactions?</label>
+      <select id="vaccinateError">
+        <option>Innapropriate dose</option>
+        <option>Innapropriate vaccine</option>
+          <option>Anaphylaxis</option>
+           <option>Loss of consciouness</option>
+           <option>911 Called</option>
+      </select>
+    </div>
+  </div>
 
   </div>
 
 
-  <!-- 6. HEALTH TIMELINE & TURNING POINTS -->
+  <!-- 6. HEALTH TIMELINE -->
   <div class="section">
     <div class="section-header">
       <span>6. Health Trajectory & Turning Points</span>
